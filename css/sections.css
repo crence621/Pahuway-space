@@ -1,0 +1,148 @@
+/* ==========================================================================
+   Destinations / About / FAQ
+   ========================================================================== */
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--color-card-border);
+  margin-block: var(--space-5);
+}
+
+/* ---- Destinations ---- */
+.destinations__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(160px, 1fr);
+  gap: var(--space-3);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.destinations__track::-webkit-scrollbar {
+  display: none;
+}
+
+.destination-tile {
+  position: relative;
+  scroll-snap-align: start;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-3);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  isolation: isolate;
+}
+
+.destination-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--tile-gradient, linear-gradient(160deg, #333, #111));
+  z-index: -2;
+}
+
+.destination-tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.75) 100%);
+  z-index: -1;
+}
+
+.destination-tile__count {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 2px;
+}
+
+/* ---- About ---- */
+.about {
+  background: var(--color-bg-raised);
+  border-radius: 24px;
+  padding: var(--space-5);
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+.about__col h3 {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
+}
+
+.about__col p {
+  color: var(--color-text-dim);
+  font-size: 0.94rem;
+}
+
+.about__col .highlight {
+  color: var(--color-gold);
+  font-weight: 600;
+}
+
+/* ---- FAQ ---- */
+.faq__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.faq-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-card-border);
+  border-radius: 16px;
+  padding: var(--space-3);
+}
+
+.faq-card h4 {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-gold);
+  margin-bottom: 8px;
+}
+
+.faq-card p {
+  font-size: 0.86rem;
+  color: var(--color-text-dim);
+}
+
+/* ---- CTA banner ---- */
+.cta-banner {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  padding: var(--space-6) var(--space-5);
+  text-align: center;
+  background: radial-gradient(circle at 30% 20%, rgba(212, 169, 23, 0.18), transparent 55%), var(--color-bg-raised);
+  border: 1px solid var(--color-card-border);
+}
+
+.cta-banner h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin-bottom: var(--space-2);
+}
+
+.cta-banner p {
+  color: var(--color-text-dim);
+  max-width: 480px;
+  margin: 0 auto var(--space-4);
+}
+
+.cta-banner__actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: center;
+}
