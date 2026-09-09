@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log in — Pahuway Space</title>
+  <meta name="description" content="Log in or create an account on Pahuway Space to save listings, message hosts, and manage your bookings." />
+
+  <link rel="icon" href="assets/images/Pahuway_Space_LOGO.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/auth.css" />
+</head>
+<body data-auth-mode="login">
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="index.html" class="brand">
+        <img src="assets/images/Pahuway_Space_LOGO.png" alt="Pahuway Space" class="brand__logo" />
+        <span class="visually-hidden">Pahuway Space — Property Rental Website System</span>
+      </a>
+
+      <nav class="main-nav" id="main-nav" aria-label="Primary">
+        <ul class="main-nav__list">
+          <li><a href="index.html#top">Home</a></li>
+          <li><a href="index.html#properties-near-you">Properties</a></li>
+          <li><a href="index.html#destinations">Destinations</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="login.html" class="btn btn--ghost" aria-current="page">Log in</a>
+        <a href="index.html#top" class="btn btn--primary">List your property</a>
+        <button id="nav-toggle" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="auth-shell">
+
+      <section class="auth-brand">
+        <div class="auth-copy">
+          <span class="hero__eyebrow">Verified listings across the Philippines</span>
+          <h1>Pick up right where you left off, or find a new <span class="accent">pahuway</span></h1>
+          <p>Sign in to message hosts, track your saved listings, and manage bookings from one dashboard.</p>
+        </div>
+
+        <div class="auth-quote">
+          <p>"Messaging the host directly before booking made the whole thing feel safe. Checked in with zero surprises."</p>
+          <div class="who">
+            <div class="avatar">MR</div>
+            <div>
+              <b>Mia Reyes</b>
+              <span>Renter, Pasig City</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="auth-form-panel">
+        <div class="auth-card">
+          <a href="index.html" class="auth-back">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 18-6-6 6-6"/></svg>
+            Back to Pahuway Space
+          </a>
+
+          <div class="auth-head">
+            <h2 id="auth-form-title">Welcome back</h2>
+            <p id="auth-form-subtitle">Log in to continue browsing and booking spaces.</p>
+          </div>
+
+          <div class="auth-tabs">
+            <button class="tab active" id="tab-login" type="button">Log in</button>
+            <button class="tab" id="tab-signup" type="button">Sign up</button>
+          </div>
+
+          <form id="auth-form" novalidate>
+            <div class="auth-field auth-field-name">
+              <label for="full-name">Full name</label>
+              <div class="auth-input-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+                <input type="text" id="full-name" placeholder="Juan Dela Cruz" autocomplete="name">
+              </div>
+              <div class="auth-field-error">Enter your full name.</div>
+            </div>
+
+            <div class="auth-field" id="field-email">
+              <label for="email">Email address</label>
+              <div class="auth-input-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                <input type="email" id="email" placeholder="name@email.com" autocomplete="email">
+              </div>
+              <div class="auth-field-error">Enter a valid email address.</div>
+            </div>
+
+            <div class="auth-field" id="field-password">
+              <label for="password">Password</label>
+              <div class="auth-input-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password">
+                <button type="button" class="auth-toggle-eye" id="toggle-password" aria-label="Show password">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+              <div class="auth-field-error">Password must be at least 8 characters.</div>
+            </div>
+
+            <div class="auth-field auth-field-confirm">
+              <label for="confirm-password">Confirm password</label>
+              <div class="auth-input-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                <input type="password" id="confirm-password" placeholder="Re-enter your password" autocomplete="new-password">
+              </div>
+              <div class="auth-field-error">Passwords don't match.</div>
+            </div>
+
+            <div class="auth-row-between">
+              <label class="auth-checkbox">
+                <input type="checkbox" id="remember">
+                Remember me
+              </label>
+              <a href="#">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn btn--primary auth-submit-block" id="submit-btn">Log in</button>
+          </form>
+
+          <div class="auth-divider">or continue with</div>
+
+          <div class="auth-social-row">
+            <button class="btn btn--ghost" type="button">
+              <svg width="15" height="15" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.1 8.1 3l6-6C34.6 5.1 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.2-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.6 15.1 18.9 12 24 12c3.1 0 5.9 1.1 8.1 3l6-6C34.6 5.1 29.6 3 24 3 15.8 3 8.7 7.6 6.3 14.7z"/><path fill="#4CAF50" d="M24 45c5.5 0 10.5-1.9 14.3-5.1l-6.6-5.6C29.5 36 26.9 37 24 37c-5.2 0-9.6-3.1-11.3-7.8l-6.6 5.1C8.6 40.4 15.7 45 24 45z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.4-2.3 4.4-4.3 5.8l6.6 5.6C41.4 36 45 30.6 45 24c0-1.2-.1-2.4-.4-3.5z"/></svg>
+              Google
+            </button>
+            <button class="btn btn--ghost" type="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="#4267B2"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1 0 2.1.2 2.1.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12Z"/></svg>
+              Facebook
+            </button>
+          </div>
+
+          <div class="auth-switch-line" id="switch-line">
+            Don't have an account? <button type="button" id="switch-to-signup">Sign up</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/images/Pahuway_Space_LOGO.png" alt="Pahuway Space" class="brand__logo" />
+          <p>Pahuway Space helps travelers, remote workers, and staycationers find verified rest spaces across the Philippines.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html#properties-near-you">Properties near you</a></li>
+            <li><a href="index.html#destinations">Destinations</a></li>
+            <li><a href="index.html#">List your property</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="index.html#about">About us</a></li>
+            <li><a href="index.html#faq">FAQ</a></li>
+            <li><a href="index.html#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="footer-year"></span> Pahuway Space. All rights reserved.</span>
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="Messenger">m</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const togglePw = document.getElementById("toggle-password");
+      const pwInput = document.getElementById("password");
+      if (!togglePw || !pwInput) {
+        console.warn("Password toggle: #toggle-password or #password not found in the DOM.");
+        return;
+      }
+      togglePw.addEventListener("click", function () {
+        const willShow = pwInput.getAttribute("type") === "password";
+        pwInput.setAttribute("type", willShow ? "text" : "password");
+        togglePw.setAttribute("aria-label", willShow ? "Hide password" : "Show password");
+      });
+    })();
+
+    const footerYear = document.getElementById("footer-year");
+    if (footerYear) footerYear.textContent = new Date().getFullYear();
+    const navToggle = document.getElementById("nav-toggle");
+    const mainNav = document.getElementById("main-nav");
+    if (navToggle && mainNav) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = mainNav.classList.toggle("is-open");
+        navToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
+
+    const body = document.body;
+    const tabLogin = document.getElementById("tab-login");
+    const tabSignup = document.getElementById("tab-signup");
+    const formTitle = document.getElementById("auth-form-title");
+    const formSubtitle = document.getElementById("auth-form-subtitle");
+    const submitBtn = document.getElementById("submit-btn");
+    const switchLine = document.getElementById("switch-line");
+    const switchToSignup = document.getElementById("switch-to-signup");
+
+    function setMode(mode) {
+      body.dataset.authMode = mode;
+      const isSignup = mode === "signup";
+      tabLogin.classList.toggle("active", !isSignup);
+      tabSignup.classList.toggle("active", isSignup);
+      formTitle.textContent = isSignup ? "Create your account" : "Welcome back";
+      formSubtitle.textContent = isSignup
+        ? "Join Pahuway Space to save listings and message hosts."
+        : "Log in to continue browsing and booking spaces.";
+      submitBtn.textContent = isSignup ? "Create account" : "Log in";
+      switchLine.innerHTML = isSignup
+        ? 'Already have an account? <button type="button" id="switch-to-login">Log in</button>'
+        : 'Don\'t have an account? <button type="button" id="switch-to-signup">Sign up</button>';
+      clearErrors();
+    }
+
+    tabLogin.addEventListener("click", () => setMode("login"));
+    tabSignup.addEventListener("click", () => setMode("signup"));
+    switchToSignup.addEventListener("click", () => setMode("signup"));
+    document.addEventListener("click", (e) => {
+      if (e.target && e.target.id === "switch-to-login") setMode("login");
+    });
+
+    function clearErrors() {
+      document.querySelectorAll(".auth-field").forEach((f) => f.classList.remove("error"));
+    }
+
+    document.getElementById("auth-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      clearErrors();
+      const isSignup = body.dataset.authMode === "signup";
+      let valid = true;
+
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+      const name = document.getElementById("full-name");
+      const confirm = document.getElementById("confirm-password");
+
+      if (isSignup && name.value.trim().length < 2) {
+        name.closest(".auth-field").classList.add("error");
+        valid = false;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+        email.closest(".auth-field").classList.add("error");
+        valid = false;
+      }
+      if (password.value.length < 8) {
+        password.closest(".auth-field").classList.add("error");
+        valid = false;
+      }
+      if (isSignup && confirm.value !== password.value) {
+        confirm.closest(".auth-field").classList.add("error");
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = isSignup ? "Creating account…" : "Logging in…";
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = isSignup ? "Create account" : "Log in";
+        alert(isSignup ? "Account created. You can now log in." : "Logged in (demo only — wire this up to your auth API).");
+      }, 900);
+    });
+  </script>
+
+</body>
+</html>
