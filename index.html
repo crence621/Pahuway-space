@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pahuway Space</title>
+  <meta name="description" content="Pahuway Space is a property rental marketplace connecting you with verified townhouses, condos, dormitories and houses for rent across the Philippines." />
+
+  <link rel="icon" href="assets/images/Pahuway_Space_LOGO.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Modular stylesheets -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="#top" class="brand">
+        <img src="assets/images/Pahuway_Space_LOGO.png" alt="Pahuway Space" class="brand__logo" />
+        <span class="visually-hidden">Pahuway Space — Property Rental Website System</span>
+      </a>
+
+      <nav class="main-nav" id="main-nav" aria-label="Primary">
+        <ul class="main-nav__list">
+          <li><a href="#top" aria-current="page">Home</a></li>
+          <li><a href="#properties-near-you">Properties</a></li>
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#" class="btn btn--ghost">Log in</a>
+        <a href="#" class="btn btn--primary">List your property</a>
+        <button id="nav-toggle" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <img src="assets/images/HOME_PAGE_BG_PHOTO.png" alt="" class="hero__bg" aria-hidden="true" />
+      <div class="hero__scrim" aria-hidden="true"></div>
+
+      <div class="container">
+        <div class="hero__content">
+          <h1>Find your <span class="accent">away home</span> anywhere in the Philippines</h1>
+        </div>
+
+        <form class="search-panel" id="search-form">
+          <div class="search-field">
+            <label for="search-location">Location</label>
+            <input id="search-location" name="location" type="text" placeholder="City or neighborhood" />
+          </div>
+          <div class="search-field">
+            <label for="search-type">Property type</label>
+            <select id="search-type" name="type">
+              <option value="">Any type</option>
+              <option value="townhouse">Townhouse</option>
+              <option value="condominium">Condominium</option>
+              <option value="dormitory">Dormitory</option>
+              <option value="house-and-lot">House and lot</option>
+            </select>
+          </div>
+          <div class="search-field">
+            <label for="search-budget">Monthly budget</label>
+            <select id="search-budget" name="budget">
+              <option value="">Any budget</option>
+              <option value="0-10000">Under ₱10,000</option>
+              <option value="10000-25000">₱10,000 – ₱25,000</option>
+              <option value="25000-60000">₱25,000 – ₱60,000</option>
+              <option value="60000+">₱60,000+</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn--primary">Search</button>
+        </form>
+
+        <div class="hero__stats" id="hero-stats"></div>
+      </div>
+    </section>
+
+    <!-- ============ PROPERTIES NEAR YOU ============ -->
+    <section class="section" id="properties-near-you">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-heading__kicker">Your home, away from home</span>
+          <h2>Properties for Rent <span class="accent">Near You</span></h2>
+        </div>
+
+        <div class="carousel">
+          <button class="carousel__nav carousel__nav--prev" id="near-you-prev" aria-label="Previous properties">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="carousel__track" id="near-you-track"></div>
+          <button class="carousel__nav carousel__nav--next" id="near-you-next" aria-label="Next properties">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURED NEW PROPERTIES ============ -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-heading__kicker">Newly introduced properties</span>
+          <h2>Featured New Properties <span class="accent">For Rent</span></h2>
+        </div>
+
+        <div class="carousel">
+          <button class="carousel__nav carousel__nav--prev" id="featured-new-prev" aria-label="Previous properties">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="carousel__track" id="featured-new-track"></div>
+          <button class="carousel__nav carousel__nav--next" id="featured-new-next" aria-label="Next properties">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RECENTLY RENTED ============ -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-heading__kicker">Success rents in the list</span>
+          <h2>Recently Rented <span class="accent">Properties</span></h2>
+        </div>
+
+        <div class="carousel">
+          <button class="carousel__nav carousel__nav--prev" id="recently-rented-prev" aria-label="Previous properties">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="carousel__track" id="recently-rented-track"></div>
+          <button class="carousel__nav carousel__nav--next" id="recently-rented-next" aria-label="Next properties">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider container" />
+
+    <!-- ============ DESTINATIONS ============ -->
+    <section class="section section--tight" id="destinations">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-heading__kicker">Most popular places to rent properties</span>
+          <h2>Popular Rental Destinations <span class="accent">in the Philippines</span></h2>
+        </div>
+
+        <div class="carousel">
+          <button class="carousel__nav carousel__nav--prev" id="destinations-prev" aria-label="Previous destinations">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="destinations__track" id="destinations-track"></div>
+          <button class="carousel__nav carousel__nav--next" id="destinations-next" aria-label="Next destinations">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section section--tight" id="about">
+      <div class="container">
+        <div class="section-heading section-heading--split">
+          <div>
+            <span class="section-heading__kicker">About Pahuway Space</span>
+            <h2>Best Rental Platform <span class="accent">in the Market</span></h2>
+          </div>
+          <a href="#" class="text-link">Learn more about Pahuway Space →</a>
+        </div>
+
+        <div class="about" id="about-content">
+          <div class="about__grid">
+            <div class="about__col about__col--find">
+              <h3></h3>
+              <p></p>
+            </div>
+            <div class="about__col about__col--why">
+              <h3></h3>
+              <p></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section section--tight" id="faq">
+      <div class="container">
+        <div class="section-heading section-heading--split">
+          <div>
+            <span class="section-heading__kicker">Asked by many</span>
+            <h2>Frequently Asked <span class="accent">Questions</span></h2>
+          </div>
+          <a href="#" class="text-link">Visit our help center →</a>
+        </div>
+
+        <div class="faq__grid" id="faq-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-banner">
+          <h2>Have a space to <span class="accent" style="color: var(--color-gold);">rent out?</span></h2>
+          <p>List your property on Pahuway Space and reach renters looking for their next home away from home.</p>
+          <div class="cta-banner__actions">
+            <a href="#" class="btn btn--primary">List your property</a>
+            <a href="#" class="btn btn--ghost">Talk to our team</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/images/Pahuway_Space_LOGO.png" alt="Pahuway Space" class="brand__logo" />
+          <p>Pahuway Space helps travelers, remote workers, and staycationers find verified rest spaces across the Philippines.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#properties-near-you">Properties near you</a></li>
+            <li><a href="#destinations">Destinations</a></li>
+            <li><a href="#">List your property</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#about">About us</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="footer-year"></span> Pahuway Space. All rights reserved.</span>
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="Messenger">m</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Data layer (swap for real API calls later) -->
+  <script src="js/data.js"></script>
+
+  <!-- Reusable UI components -->
+  <script src="js/components/propertyCard.js"></script>
+  <script src="js/components/carousel.js"></script>
+
+  <!-- Section modules -->
+  <script src="js/sections/propertySections.js"></script>
+  <script src="js/sections/destinations.js"></script>
+  <script src="js/sections/content.js"></script>
+
+  <!-- App bootstrap -->
+  <script src="js/main.js"></script>
+</body>
+</html>
