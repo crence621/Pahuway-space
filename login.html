@@ -264,44 +264,109 @@
       document.querySelectorAll(".auth-field").forEach((f) => f.classList.remove("error"));
     }
 
-    document.getElementById("auth-form").addEventListener("submit", (e) => {
-      e.preventDefault();
-      clearErrors();
-      const isSignup = body.dataset.authMode === "signup";
-      let valid = true;
+document.getElementById("auth-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-      const email = document.getElementById("email");
-      const password = document.getElementById("password");
-      const name = document.getElementById("full-name");
-      const confirm = document.getElementById("confirm-password");
+  clearErrors();
 
-      if (isSignup && name.value.trim().length < 2) {
-        name.closest(".auth-field").classList.add("error");
-        valid = false;
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
-        email.closest(".auth-field").classList.add("error");
-        valid = false;
-      }
-      if (password.value.length < 8) {
-        password.closest(".auth-field").classList.add("error");
-        valid = false;
-      }
-      if (isSignup && confirm.value !== password.value) {
-        confirm.closest(".auth-field").classList.add("error");
-        valid = false;
-      }
+  const isSignup = body.dataset.authMode === "signup";
 
-      if (!valid) return;
+  const email = document.getElementById("email");
+  const password = document.getElementById("password");
+  const name = document.getElementById("full-name");
+  const confirm = document.getElementById("confirm-password");
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = isSignup ? "Creating account…" : "Logging in…";
-      setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = isSignup ? "Create account" : "Log in";
-        alert(isSignup ? "Account created. You can now log in." : "Logged in (demo only — wire this up to your auth API).");
-      }, 900);
+  let valid = true;
+
+  /* Validate name */
+  if (isSignup && name.value.trim().length < 2) {
+    name.closest(".auth-field").classList.add("error");
+    valid = false;
+  }
+
+  /* Validate email */
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+    email.closest(".auth-field").classList.add("error");
+    valid = false;
+  }
+
+  /* Validate password */
+  if (password.value.length < 8) {
+    password.closest(".auth-field").classList.add("error");
+    valid = false;
+  }
+
+  /* Validate password confirmation */
+  if (isSignup && confirm.value !== password.value) {
+    confirm.closest(".auth-field").classList.add("error");
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = isSignup ? "Creating account…" : "Logging in…";
+
+  try {
+
+    const formData = new FormData();
+
+    formData.append("email", email.value.trim());
+    formData.append("password", password.value);
+
+    if (isSignup) {
+      formData.append("full_name", name.value.trim());
+    }
+
+    const endpoint = isSignup
+      ? "api/signup.php"
+      : "api/login.php";
+
+    const response = await fetch(endpoint, {
+      method: "POST",
+      body: formData
     });
+
+    const data = await response.json();
+
+    if (data.success) {
+
+      if (isSignup) {
+        alert("Account created successfully! You can now log in.");
+
+        setMode("login");
+
+        email.value = "";
+        password.value = "";
+        name.value = "";
+        confirm.value = "";
+
+      } else {
+
+        alert("Welcome back, " + data.user.full_name + "!");
+
+        window.location.href = "dashboard.html";
+      }
+
+    } else {
+
+      alert(data.message);
+
+    }
+
+  } catch (error) {
+
+    console.error("Authentication error:", error);
+
+    alert("Something went wrong while connecting to the server.");
+
+  } finally {
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = isSignup ? "Create account" : "Log in";
+
+  }
+});
   </script>
 
 </body>

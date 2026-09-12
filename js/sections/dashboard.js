@@ -7,16 +7,32 @@ const DashboardSection = (() => {
     localStorage.setItem("pahuway:favorites", JSON.stringify([...ids]));
   }
 
-  function renderProfile() {
-    const name = localStorage.getItem("pahuway:userName") || "Renter";
-    const email = localStorage.getItem("pahuway:userEmail") || "you@pahuwayspace.ph";
+async function renderProfile() {
+  try {
+    const response = await fetch("api/session.php");
+
+    const data = await response.json();
+
+    if (!data.loggedIn) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    const name = data.user.full_name;
+    const email = data.user.email;
 
     const nameEl = document.getElementById("dashboard-user-name");
     const emailEl = document.getElementById("dashboard-user-email");
     const avatarEl = document.getElementById("dashboard-user-avatar");
 
-    if (nameEl) nameEl.textContent = name;
-    if (emailEl) emailEl.textContent = email;
+    if (nameEl) {
+      nameEl.textContent = name;
+    }
+
+    if (emailEl) {
+      emailEl.textContent = email;
+    }
+
     if (avatarEl) {
       avatarEl.textContent = name
         .split(" ")
@@ -25,7 +41,12 @@ const DashboardSection = (() => {
         .join("")
         .toUpperCase();
     }
+
+  } catch (error) {
+    console.error("Session check failed:", error);
+    window.location.href = "login.html";
   }
+}
 
   async function renderFavorites() {
     const grid = document.getElementById("dashboard-favorites-grid");
@@ -73,8 +94,8 @@ const DashboardSection = (() => {
     });
   }
 
-  function init() {
-    renderProfile();
+  async function init() {
+    await renderProfile();
     renderFavorites();
   }
 

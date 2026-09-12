@@ -8,13 +8,19 @@
 
   <link rel="icon" href="assets/images/Pahuway_Space_LOGO.png" />
 
-  <!-- ADDED: guard — bounce non-logged-in visitors back to the login page.
-       Demo only: this is a localStorage flag, not real authentication. -->
   <script>
-    if (!localStorage.getItem("pahuway:loggedIn")) {
+  fetch("api/session.php")
+    .then(response => response.json())
+    .then(data => {
+      if (!data.loggedIn) {
+        window.location.href = "login.html";
+      }
+    })
+    .catch(error => {
+      console.error("Session check failed:", error);
       window.location.href = "login.html";
-    }
-  </script>
+    });
+  </script> 
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
