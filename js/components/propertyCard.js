@@ -32,12 +32,17 @@ const PropertyCard = (() => {
 
   /**
    * @param {import('../data.js').Property} property
-   * @param {{ favorited?: boolean, onToggleFavorite?: (id:string)=>void }} [opts]
+   * @param {{ favorited?: boolean, onToggleFavorite?: (id:string)=>void, onOpenDetails?: (property:object)=>void }} [opts]
    */
   function render(property, opts = {}) {
     const el = document.createElement("article");
     el.className = "property-card" + (property.status === "rented" ? " property-card--rented" : "");
     el.dataset.propertyId = property.id;
+
+    // ---- ADDED: make the whole card clickable / keyboard-focusable ----
+    el.tabIndex = 0;
+    el.setAttribute("role", "button");
+    el.setAttribute("aria-label", `View details for ${property.title}`);
 
     const isFav = !!opts.favorited;
 
@@ -87,7 +92,8 @@ const PropertyCard = (() => {
     `;
 
     const favBtn = el.querySelector(".property-card__fav");
-    favBtn.addEventListener("click", () => {
+    favBtn.addEventListener("click", (e) => {
+      e.stopPropagation(); // ---- ADDED: don't also open the modal ----
       const next = favBtn.getAttribute("aria-pressed") !== "true";
       favBtn.setAttribute("aria-pressed", String(next));
       if (typeof opts.onToggleFavorite === "function") {
@@ -95,6 +101,25 @@ const PropertyCard = (() => {
       }
     });
 
+    // ---- ADDED: share/contact icons shouldn't trigger the modal either ----
+    const shareGroup = el.querySelector(".property-card__share");
+    if (shareGroup) {
+      shareGroup.addEventListener("click", (e) => e.stopPropagation());
+    }
+
+    // ---- ADDED: open the booking modal on card click / Enter / Space ----
+    function openDetails(e) {
+      if (e.target.closest(".property-card__fav") || e.target.closest(".property-card__share")) return;
+      if (typeof opts.onOpenDetails === "function") opts.onOpenDetails(property);
+    }
+    el.addEventListener("click", openDetails);
+    el.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openDetails(e);
+      }
+    });
+    
     return el;
   }
 
