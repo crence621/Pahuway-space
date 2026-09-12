@@ -17,6 +17,42 @@
 const PahuwaySpaceData = (() => {
   const IMG = "assets/images/";
 
+  async function getPropertiesFromAPI() {
+    const response = await fetch("api/properties.php");
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch properties.");
+    }
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || "Failed to load properties.");
+    }
+
+    return data.properties.map((property) => ({
+      id: String(property.property_id),
+      code: property.property_code,
+      badge: property.property_type,
+      title: property.title,
+      location: property.location,
+      price: Number(property.price),
+      priceUnit: property.price_unit,
+      specs: {
+        beds: Number(property.bedrooms),
+        baths: Number(property.bathrooms),
+        area: property.area,
+      },
+      image: property.image,
+      verified: Boolean(property.verified),
+      status: property.status,
+      agent: {
+        name: property.owner_name || "Pahuway Space",
+        role: "Property Owner",
+      },
+    }));
+  }
+
   /** @typedef {Object} Property
    *  @property {string} id
    *  @property {string} code
@@ -31,245 +67,6 @@ const PahuwaySpaceData = (() => {
    *  @property {"available"|"rented"} status
    *  @property {{name:string, role:string}} agent
    */
-
-  const propertiesNearYou = [
-    {
-      id: "near-1",
-      code: "PS-ASD67FGH89",
-      badge: "Townhouse",
-      title: "Fully Finished Modern 2BR Townhouse",
-      location: "Block 22 Lot 7, Lucia Mencias, Mandaluyong City",
-      price: 18000,
-      priceUnit: "monthly",
-      specs: { beds: 2, baths: 2, area: "50 sqm" },
-      image: IMG + "near-you-1.png",
-      verified: true,
-      status: "available",
-      agent: { name: "Juan Dela Cruz", role: "Agent" },
-    },
-    {
-      id: "near-2",
-      code: "PS-5GAUP89LM9",
-      badge: "Dormitory",
-      title: "Room for Rent in Araullo Street Brgy. 2",
-      location: "Araullo Street, Shaw Boulevard, Mandaluyong City",
-      price: 7000,
-      priceUnit: "monthly",
-      specs: { beds: 1, baths: 1, area: "20 sqm" },
-      image: IMG + "near-you-2.png",
-      verified: true,
-      status: "available",
-      agent: { name: "Jheff Agues", role: "Agent" },
-    },
-    {
-      id: "near-3",
-      code: "PS-XFGQ0907PW",
-      badge: "Townhouse",
-      title: "The Olive Place in Mandaluyong City",
-      location: "407 Shaw Blvd. Brgy Addition Hills, Mandaluyong City",
-      price: 22000,
-      priceUnit: "monthly",
-      specs: { beds: 1, baths: 1, area: "Studio · 25 sqm" },
-      image: IMG + "near-you-3.png",
-      verified: true,
-      status: "available",
-      agent: { name: "Alex Guzman", role: "Agent" },
-    },
-
-    // itong tatlo yung bago
-    {
-      id: "near-4",
-      code: "PS-QW12EROT56",
-      badge: "Condominium",
-      title: "Cozy 1BR Condo Unit near Ortigas Center",
-      location: "Ortigas Avenue, Pasig City",
-      price: 16000,
-      priceUnit: "monthly",
-      specs: { beds: 1, baths: 1, area: "28 sqm" },
-      image: IMG + "INSERTIMAGE.jpg",
-      verified: true,
-      status: "available",
-      agent: { name: "Liza Fernandez", role: "Agent" },
-    },
-    {
-      id: "near-5",
-      code: "PS-9DHT34ZXA1",
-      badge: "House and Lot",
-      title: "2-Storey Duplex House for Rent in Antipolo City",
-      location: "Brgy. Dalig, Antipolo City, Rizal",
-      price: 20000,
-      priceUnit: "monthly",
-      specs: { beds: 3, baths: 2, area: "65 sqm" },
-      image: IMG + "INSERTIMAGE.png",
-      verified: true,
-      status: "available",
-      agent: { name: "Mark Villanueva", role: "Agent" },
-    },
-    {
-      id: "near-6",
-      code: "PS-77LKM90BCE",
-      badge: "Dormitory",
-      title: "Shared Dormitory Bed Space near UST, Manila",
-      location: "España Blvd, Sampaloc, Manila",
-      price: 6500,
-      priceUnit: "monthly",
-      specs: { beds: 1, baths: 1, area: "18 sqm" },
-      image: IMG + "INSERTIMAGE.png",
-      verified: false,
-      status: "available",
-      agent: { name: "Carla Bautista", role: "Agent" },
-    },
-  ];
-
-  const featuredNewProperties = [
-    {
-      id: "new-1",
-      code: "PS-111D7UJHA90",
-      badge: "Condominium",
-      title: "Luxurious 2 BR Studio Unit Condominium for Rent in Azure Suites Paranaque",
-      location: "Azure Urban Resorts Residences, Paranaque City",
-      price: 25000,
-      priceUnit: "monthly",
-      specs: { beds: 2, baths: 2, area: "50 sqm" },
-      image: IMG + "new-property-1.png",
-      verified: true,
-      status: "available",
-      agent: { name: "Annie Piuka", role: "Agent" },
-    },
-    {
-      id: "new-2",
-      code: "PS-JNXXJUE1567",
-      badge: "Condominium",
-      title: "City View 3 BR Penthouse for Rent in Poblacion, Makati City",
-      location: "Pilar Hills, Poblacion, Makati City",
-      price: 113000,
-      priceUnit: "monthly",
-      specs: { beds: 3, baths: 2, area: "112 sqm" },
-      image: IMG + "new-property-2.png",
-      verified: true,
-      status: "available",
-      agent: { name: "Joshua Garcia", role: "Agent" },
-    },
-    {
-      id: "new-3",
-      code: "PS-567YHSA826",
-      badge: "House and Lot",
-      title: "1-Storey House and Lot Rental Property in Manila, Philippines",
-      location: "San Andres, Manila, Philippines",
-      price: 32000,
-      priceUnit: "monthly",
-      specs: { beds: 2, baths: 1, area: "32 sqm" },
-      image: IMG + "new-property-3.png",
-      verified: true,
-      status: "available",
-      agent: { name: "Grace Yu", role: "Agent" },
-    },
-
-    // dagdag 2
-    {
-      id: "new-4",
-      code: "PS-8BGCTWR234",
-      badge: "Condominium",
-      title: "Modern Studio Unit with Balcony in BGC, Taguig",
-      location: "34th Street, Bonifacio Global City, Taguig",
-      price: 42000,
-      priceUnit: "monthly",
-      specs: { beds: 1, baths: 1, area: "30 sqm" },
-      image: IMG + "INSERTIMAGE.png",
-      verified: true,
-      status: "available",
-      agent: { name: "Kevin Tan", role: "Agent" },
-    },
-    {
-      id: "new-5",
-      code: "PS-4CVIMUS678",
-      badge: "House and Lot",
-      title: "Brand New 3BR House and Lot in Imus, Cavite",
-      location: "Palm Estates, Imus City, Cavite",
-      price: 28000,
-      priceUnit: "monthly",
-      specs: { beds: 3, baths: 2, area: "90 sqm" },
-      image: IMG + "INSERTIMAGE.png",
-      verified: true,
-      status: "available",
-      agent: { name: "Denise Ramos", role: "Agent" },
-    },
-  ];
-
-  const recentlyRentedProperties = [
-    {
-      id: "rented-1",
-      code: "PS-XX901BJ7781",
-      badge: "Dormitory",
-      title: "1 Single Bed Shared Dormitory in Intramuros, Manila, Philippines",
-      location: "Magallanes St., Intramuros, Manila, Philippines",
-      price: 9000,
-      priceUnit: "monthly",
-      specs: { beds: 1, baths: 1, area: "30 sqm" },
-      image: IMG + "recent-property-1.png",
-      verified: false,
-      status: "rented",
-      agent: { name: "Enzo Dee", role: "Agent" },
-    },
-    {
-      id: "rented-2",
-      code: "PS-JKLB345AD78",
-      badge: "Condominium",
-      title: "Airconditioned Dormitory Solo Bedroom in San Isidro, Indang, Cavite",
-      location: "118 San Isidro, Indang, Cavite",
-      price: 11000,
-      priceUnit: "monthly",
-      specs: { beds: 1, baths: 1, area: "22 sqm" },
-      image: IMG + "recent-property-2.png",
-      verified: true,
-      status: "rented",
-      agent: { name: "Pia Santos", role: "Agent" },
-    },
-    {
-      id: "rented-3",
-      code: "PS-JNM23XD567",
-      badge: "Condominium",
-      title: "1 Bedroom House and Lot Rental Property in Quezon City, Philippines",
-      location: "Novaliches, Quezon City, Philippines",
-      price: 15000,
-      priceUnit: "monthly",
-      specs: { beds: 1, baths: 2, area: "47 sqm" },
-      image: IMG + "recent-property-3.png",
-      verified: true,
-      status: "rented",
-      agent: { name: "Allya Perez", role: "Agent" },
-    },
-
-    // dagdag 2 
-    {
-      id: "rented-4",
-      code: "PS-3MRKN567TWH",
-      badge: "Townhouse",
-      title: "3BR Townhouse for Rent in Marikina City",
-      location: "Concepcion Uno, Marikina City",
-      price: 24000,
-      priceUnit: "monthly",
-      specs: { beds: 3, baths: 2, area: "70 sqm" },
-      image: IMG + "INSERTIMAGE.png",
-      verified: true,
-      status: "rented",
-      agent: { name: "Ryan Ocampo", role: "Agent" },
-    },
-    {
-      id: "rented-5",
-      code: "PS-1DLSU890RM",
-      badge: "Dormitory",
-      title: "Single Occupancy Room near De La Salle, Manila",
-      location: "Taft Avenue, Malate, Manila",
-      price: 8500,
-      priceUnit: "monthly",
-      specs: { beds: 1, baths: 1, area: "16 sqm" },
-      image: IMG + "INSERTIMAGE.png",
-      verified: false,
-      status: "rented",
-      agent: { name: "Trisha Lim", role: "Agent" },
-    },
-  ];
 
   // Placeholder gradient tiles until real destination photography is ready.
   // Swap `image` for a real photo path any time the tile renderer
@@ -334,12 +131,32 @@ const PahuwaySpaceData = (() => {
   const asPromise = (data) => Promise.resolve(data);
 
   return {
-    getPropertiesNearYou: () => asPromise(propertiesNearYou),
-    getFeaturedNewProperties: () => asPromise(featuredNewProperties),
-    getRecentlyRentedProperties: () => asPromise(recentlyRentedProperties),
-    getDestinations: () => asPromise(destinations),
-    getFaqs: () => asPromise(faqs),
-    getAboutContent: () => asPromise(about),
-    getHeroStats: () => asPromise(heroStats),
-  };
+  getPropertiesNearYou: async () => {
+    const properties = await getPropertiesFromAPI();
+
+    return properties
+      .filter((property) => property.status === "available")
+      .slice(0, 6);
+  },
+
+  getFeaturedNewProperties: async () => {
+    const properties = await getPropertiesFromAPI();
+
+    return properties
+      .filter((property) => property.status === "available")
+      .slice(6);
+  },
+
+  getRecentlyRentedProperties: async () => {
+    const properties = await getPropertiesFromAPI();
+
+    return properties
+      .filter((property) => property.status === "rented");
+  },
+
+  getDestinations: () => asPromise(destinations),
+  getFaqs: () => asPromise(faqs),
+  getAboutContent: () => asPromise(about),
+  getHeroStats: () => asPromise(heroStats),
+};
 })();
