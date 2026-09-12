@@ -1,5 +1,5 @@
 .auth-shell {
-  min-height: calc(100vh - 73px);
+  min-height: calc(100vh - 73px); /* viewport minus header height */
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
@@ -93,6 +93,7 @@
   color: var(--color-text-faint);
 }
 
+/* ---------- Right: form panel ---------- */
 .auth-form-panel {
   display: flex;
   align-items: center;
@@ -131,6 +132,37 @@
   margin-bottom: var(--space-4);
 }
 
+/* "account created" success note shown after signup */
+.auth-success-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.86rem;
+  color: var(--color-teal);
+  background: color-mix(in srgb, var(--color-teal) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-teal) 35%, transparent);
+  border-radius: var(--radius-card);
+  padding: 10px 14px;
+  margin-bottom: var(--space-4);
+}
+
+.auth-success-note::before {
+  content: "✓";
+  font-weight: 700;
+}
+
+/* ---- FIXED: [hidden] and a class selector have identical specificity,
+   so the browser just uses whichever rule appears later in the cascade —
+   which is always this stylesheet, after the UA default [hidden]{display:none}.
+   That let `.auth-success-note{display:flex}` silently win, making the
+   note visible on page load even with the `hidden` attribute set. This
+   rule restores hidden's priority explicitly. ---- */
+.auth-success-note[hidden] {
+  display: none;
+}
+/* ---- END FIXED ---- */
+
+/* ---------- Tabs (login / sign up) ---------- */
 .auth-tabs {
   display: flex;
   gap: 4px;
@@ -160,6 +192,7 @@
   color: #1a1400;
 }
 
+/* ---------- Fields ---------- */
 .auth-field {
   margin-bottom: var(--space-3);
 }
@@ -264,11 +297,13 @@
   text-decoration: underline;
 }
 
+/* Full-width variant of the existing .btn / .btn--primary */
 .auth-submit-block {
   width: 100%;
   margin-bottom: var(--space-4);
 }
 
+/* ---------- Divider + socials ---------- */
 .auth-divider {
   display: flex;
   align-items: center;
@@ -317,6 +352,7 @@
   text-decoration: underline;
 }
 
+/* ---------- Sign-up-only fields ---------- */
 .auth-field-name,
 .auth-field-confirm {
   display: none;
