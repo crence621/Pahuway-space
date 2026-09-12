@@ -1,4 +1,4 @@
-/**
+/** THIS IS THE PROPERTYSECTIONS.JS
  * ------------------------------------------------------------------
  * Wires up "Properties Near You", "Featured New Properties", and
  * "Recently Rented Properties" each is data + card component +
@@ -17,6 +17,14 @@ const PropertySections = (() => {
     persistFavorites();
   }
 
+  function onOpenDetails(property) {
+    if (typeof window.onPropertyCardOpen === "function") {
+      window.onPropertyCardOpen(property);
+    } else {
+      console.warn("window.onPropertyCardOpen is not defined on this page — no modal will open on card click.");
+    }
+  }
+
   async function mount({ trackSelector, prevSelector, nextSelector, fetchData }) {
     const track = document.querySelector(trackSelector);
     if (!track) return;
@@ -30,6 +38,7 @@ const PropertySections = (() => {
         const card = PropertyCard.render(property, {
           favorited: favorites.has(property.id),
           onToggleFavorite,
+          onOpenDetails,
         });
         track.appendChild(card);
       });

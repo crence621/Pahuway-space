@@ -76,7 +76,21 @@
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
+  /* ---- ADDED: whole card is clickable to open the booking modal ---- */
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease;
 }
+
+.property-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-gold-bright);
+}
+
+.property-card:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+/* ---- END ADDED ---- */
 
 .property-card__media {
   position: relative;

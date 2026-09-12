@@ -75,6 +75,50 @@ const PahuwaySpaceData = (() => {
       status: "available",
       agent: { name: "Alex Guzman", role: "Agent" },
     },
+
+    // itong tatlo yung bago
+    {
+      id: "near-4",
+      code: "PS-QW12EROT56",
+      badge: "Condominium",
+      title: "Cozy 1BR Condo Unit near Ortigas Center",
+      location: "Ortigas Avenue, Pasig City",
+      price: 16000,
+      priceUnit: "monthly",
+      specs: { beds: 1, baths: 1, area: "28 sqm" },
+      image: IMG + "INSERTIMAGE.jpg",
+      verified: true,
+      status: "available",
+      agent: { name: "Liza Fernandez", role: "Agent" },
+    },
+    {
+      id: "near-5",
+      code: "PS-9DHT34ZXA1",
+      badge: "House and Lot",
+      title: "2-Storey Duplex House for Rent in Antipolo City",
+      location: "Brgy. Dalig, Antipolo City, Rizal",
+      price: 20000,
+      priceUnit: "monthly",
+      specs: { beds: 3, baths: 2, area: "65 sqm" },
+      image: IMG + "INSERTIMAGE.png",
+      verified: true,
+      status: "available",
+      agent: { name: "Mark Villanueva", role: "Agent" },
+    },
+    {
+      id: "near-6",
+      code: "PS-77LKM90BCE",
+      badge: "Dormitory",
+      title: "Shared Dormitory Bed Space near UST, Manila",
+      location: "España Blvd, Sampaloc, Manila",
+      price: 6500,
+      priceUnit: "monthly",
+      specs: { beds: 1, baths: 1, area: "18 sqm" },
+      image: IMG + "INSERTIMAGE.png",
+      verified: false,
+      status: "available",
+      agent: { name: "Carla Bautista", role: "Agent" },
+    },
   ];
 
   const featuredNewProperties = [
@@ -119,6 +163,36 @@ const PahuwaySpaceData = (() => {
       verified: true,
       status: "available",
       agent: { name: "Grace Yu", role: "Agent" },
+    },
+
+    // dagdag 2
+    {
+      id: "new-4",
+      code: "PS-8BGCTWR234",
+      badge: "Condominium",
+      title: "Modern Studio Unit with Balcony in BGC, Taguig",
+      location: "34th Street, Bonifacio Global City, Taguig",
+      price: 42000,
+      priceUnit: "monthly",
+      specs: { beds: 1, baths: 1, area: "30 sqm" },
+      image: IMG + "INSERTIMAGE.png",
+      verified: true,
+      status: "available",
+      agent: { name: "Kevin Tan", role: "Agent" },
+    },
+    {
+      id: "new-5",
+      code: "PS-4CVIMUS678",
+      badge: "House and Lot",
+      title: "Brand New 3BR House and Lot in Imus, Cavite",
+      location: "Palm Estates, Imus City, Cavite",
+      price: 28000,
+      priceUnit: "monthly",
+      specs: { beds: 3, baths: 2, area: "90 sqm" },
+      image: IMG + "INSERTIMAGE.png",
+      verified: true,
+      status: "available",
+      agent: { name: "Denise Ramos", role: "Agent" },
     },
   ];
 
@@ -165,6 +239,36 @@ const PahuwaySpaceData = (() => {
       status: "rented",
       agent: { name: "Allya Perez", role: "Agent" },
     },
+
+    // dagdag 2 
+    {
+      id: "rented-4",
+      code: "PS-3MRKN567TWH",
+      badge: "Townhouse",
+      title: "3BR Townhouse for Rent in Marikina City",
+      location: "Concepcion Uno, Marikina City",
+      price: 24000,
+      priceUnit: "monthly",
+      specs: { beds: 3, baths: 2, area: "70 sqm" },
+      image: IMG + "INSERTIMAGE.png",
+      verified: true,
+      status: "rented",
+      agent: { name: "Ryan Ocampo", role: "Agent" },
+    },
+    {
+      id: "rented-5",
+      code: "PS-1DLSU890RM",
+      badge: "Dormitory",
+      title: "Single Occupancy Room near De La Salle, Manila",
+      location: "Taft Avenue, Malate, Manila",
+      price: 8500,
+      priceUnit: "monthly",
+      specs: { beds: 1, baths: 1, area: "16 sqm" },
+      image: IMG + "INSERTIMAGE.png",
+      verified: false,
+      status: "rented",
+      agent: { name: "Trisha Lim", role: "Agent" },
+    },
   ];
 
   // Placeholder gradient tiles until real destination photography is ready.
@@ -176,6 +280,11 @@ const PahuwaySpaceData = (() => {
     { id: "makati", name: "Makati", listingCount: 261, image: IMG + "destination-makati.png", gradient: "linear-gradient(160deg,#1f2b3a,#0c1218)" },
     { id: "cebu-city", name: "Cebu City", listingCount: 132, image: IMG + "destination-cebu.png", gradient: "linear-gradient(160deg,#123a3a,#0a1616)" },
     { id: "iloilo-city", name: "Iloilo City", listingCount: 64, image: IMG + "destination-iloilo.png", gradient: "linear-gradient(160deg,#3a2f12,#161006)" },
+
+    // dagdag tong 3
+    { id: "bohol-city", name: "Bohol City", listingCount: 97, image: IMG + "INSERTIMAGE.png", gradient: "linear-gradient(160deg,#2a3a1f,#101609)" },
+    { id: "baguio-city", name: "Baguio City", listingCount: 85, image: IMG + "INSERTIMAGE.png", gradient: "linear-gradient(160deg,#232b3a,#0b0e14)" },
+    { id: "tagaytay-city", name: "Tagaytay City", listingCount: 58, image: IMG + "INSERTIMAGE.png", gradient: "linear-gradient(160deg,#3a2a3a,#160c16)" },
   ];
 
   const faqs = [

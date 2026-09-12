@@ -3,27 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pahuway Space</title>
-  <meta name="description" content="Pahuway Space is a property rental marketplace connecting you with verified townhouses, condos, dormitories and houses for rent across the Philippines." />
+  <title>Pahuway Space — My Dashboard</title>
+  <meta name="description" content="Browse and book verified rental properties across the Philippines on Pahuway Space." />
 
   <link rel="icon" href="assets/images/Pahuway_Space_LOGO.png" />
+
+  <!-- ADDED: guard — bounce non-logged-in visitors back to the login page.
+       Demo only: this is a localStorage flag, not real authentication. -->
+  <script>
+    if (!localStorage.getItem("pahuway:loggedIn")) {
+      window.location.href = "login.html";
+    }
+  </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-  <!-- Modular stylesheets -->
+  <!-- Modular stylesheets (same as index.html) -->
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/layout.css" />
   <link rel="stylesheet" href="css/cards.css" />
   <link rel="stylesheet" href="css/sections.css" />
   <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Booking modal styles (real booking form lives on this page) -->
+  <link rel="stylesheet" href="css/modal.css" />
 </head>
 <body>
 
   <!-- ============ HEADER ============ -->
   <header class="site-header">
     <div class="container site-header__inner">
-      <a href="#top" class="brand">
+      <a href="member-home.html" class="brand">
         <img src="assets/images/Pahuway_Space_LOGO.png" alt="Pahuway Space" class="brand__logo" />
         <span class="visually-hidden">Pahuway Space — Property Rental Website System</span>
       </a>
@@ -39,7 +50,9 @@
       </nav>
 
       <div class="header-actions">
-        <a href="login.html" class="btn btn--ghost">Log in</a>
+        <!-- UPDATED: logging out now happens from the dashboard, with a
+             confirmation step, instead of instantly here. -->
+        <a href="dashboard.html" class="btn btn--ghost">My Account</a>
         <a href="#" class="btn btn--primary">List your property</a>
         <button id="nav-toggle" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
@@ -57,7 +70,7 @@
 
       <div class="container">
         <div class="hero__content">
-          <h1>Find your <span class="accent">away home</span> anywhere in the Philippines</h1>
+          <h1>Welcome back — find your next <span class="accent">pahuway</span></h1>
         </div>
 
         <form class="search-panel" id="search-form">
@@ -215,20 +228,6 @@
       </div>
     </section>
 
-    <!-- ============ CTA ============ -->
-    <section class="section">
-      <div class="container">
-        <div class="cta-banner">
-          <h2>Have a space to <span class="accent" style="color: var(--color-gold);">rent out?</span></h2>
-          <p>List your property on Pahuway Space and reach renters looking for their next home away from home.</p>
-          <div class="cta-banner__actions">
-            <a href="#" class="btn btn--primary">List your property</a>
-            <a href="#" class="btn btn--ghost">Talk to our team</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <!-- ============ FOOTER ============ -->
@@ -281,12 +280,20 @@
   <!-- Reusable UI components -->
   <script src="js/components/propertyCard.js"></script>
   <script src="js/components/carousel.js"></script>
+  <!-- Real booking modal — this page is for logged-in users -->
+  <script src="js/components/bookingModal.js"></script>
 
   <!-- Section modules -->
   <script src="js/sections/propertySections.js"></script>
   <script src="js/sections/destinations.js"></script>
   <script src="js/sections/content.js"></script>
 
+  <!-- ADDED: logged-in users get the real booking modal on card click -->
+  <script>
+    window.onPropertyCardOpen = function (property) {
+      BookingModal.open(property);
+    };
+  </script>
 
   <!-- App bootstrapsssssssssssssssssssssss -->
   <script src="js/main.js"></script>

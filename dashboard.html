@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Dashboard — Pahuway Space</title>
+  <meta name="description" content="Manage your Pahuway Space account, saved properties, and bookings." />
+
+  <link rel="icon" href="assets/images/Pahuway_Space_LOGO.png" />
+
+  <!-- Guard — bounce non-logged-in visitors back to the login page.
+       Demo only: this is a localStorage flag, not real authentication. -->
+  <script>
+    if (!localStorage.getItem("pahuway:loggedIn")) {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Same modular stylesheets as the rest of the site -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/cards.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Booking modal (saved properties can be booked straight from here) -->
+  <link rel="stylesheet" href="css/modal.css" />
+  <!-- Dashboard-only layout -->
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <!-- ============ HEADER (same markup as member-home.html) ============ -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="member-home.html" class="brand">
+        <img src="assets/images/Pahuway_Space_LOGO.png" alt="Pahuway Space" class="brand__logo" />
+        <span class="visually-hidden">Pahuway Space — Property Rental Website System</span>
+      </a>
+
+      <nav class="main-nav" id="main-nav" aria-label="Primary">
+        <ul class="main-nav__list">
+          <li><a href="member-home.html#top">Home</a></li>
+          <li><a href="member-home.html#properties-near-you">Properties</a></li>
+          <li><a href="member-home.html#destinations">Destinations</a></li>
+          <li><a href="member-home.html#about">About</a></li>
+          <li><a href="member-home.html#faq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="dashboard.html" class="btn btn--ghost" aria-current="page">My Account</a>
+        <a href="#" class="btn btn--primary">List your property</a>
+        <button id="nav-toggle" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="container">
+
+      <div class="dashboard-header">
+        <h1>My Dashboard</h1>
+        <p>Manage your saved properties, bookings, and account.</p>
+      </div>
+
+      <!-- ============ PROFILE ============ -->
+      <div class="dashboard-profile">
+        <div class="dashboard-profile__avatar" id="dashboard-user-avatar">--</div>
+        <div>
+          <div class="dashboard-profile__name" id="dashboard-user-name">Renter</div>
+          <div class="dashboard-profile__email" id="dashboard-user-email">you@pahuwayspace.ph</div>
+        </div>
+        <span class="dashboard-profile__badge">Verified renter</span>
+      </div>
+
+      <!-- ============ SAVED PROPERTIES ============ -->
+      <section class="dashboard-section" id="dashboard-saved">
+        <div class="dashboard-section__head">
+          <h2>Saved Properties</h2>
+          <span class="dashboard-section__count"><span id="dashboard-favorites-count">0</span> saved</span>
+        </div>
+
+        <div class="dashboard-favorites-grid" id="dashboard-favorites-grid"></div>
+
+        <div class="dashboard-empty" id="dashboard-favorites-empty" hidden>
+          <p>You haven't saved any properties yet.</p>
+          <a href="member-home.html#properties-near-you">Browse listings to save some →</a>
+        </div>
+      </section>
+
+      <!-- ============ BOOKINGS ============ -->
+      <section class="dashboard-section" id="dashboard-bookings">
+        <div class="dashboard-section__head">
+          <h2>My Bookings</h2>
+        </div>
+
+        <div class="dashboard-empty">
+          <p>You haven't requested any bookings yet.</p>
+          <a href="member-home.html#properties-near-you">Find a place to stay →</a>
+        </div>
+      </section>
+
+      <!-- ============ SESSION / LOG OUT ============ -->
+      <section class="dashboard-section">
+        <div class="dashboard-session">
+          <div>
+            <strong>Signed in</strong>
+            <p>You're currently logged in on this device. Logging out will end this session.</p>
+          </div>
+          <button type="button" class="btn dashboard-logout-btn" id="logout-btn">Log out</button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ============ FOOTER (same markup as member-home.html) ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/images/Pahuway_Space_LOGO.png" alt="Pahuway Space" class="brand__logo" />
+          <p>Pahuway Space helps travelers, remote workers, and staycationers find verified rest spaces across the Philippines.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="member-home.html#properties-near-you">Properties near you</a></li>
+            <li><a href="member-home.html#destinations">Destinations</a></li>
+            <li><a href="#">List your property</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="member-home.html#about">About us</a></li>
+            <li><a href="member-home.html#faq">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="footer-year"></span> Pahuway Space. All rights reserved.</span>
+        <div class="footer-socials">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="Messenger">m</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Data layer -->
+  <script src="js/data.js"></script>
+
+  <!-- Reusable UI components -->
+  <script src="js/components/propertyCard.js"></script>
+  <script src="js/components/carousel.js"></script>
+  <script src="js/components/bookingModal.js"></script>
+
+  <!-- Dashboard-only section module -->
+  <script src="js/sections/dashboard.js"></script>
+
+  <script>
+    // Footer year (main.js normally handles this on index.html)
+    const footerYear = document.getElementById("footer-year");
+    if (footerYear) footerYear.textContent = new Date().getFullYear();
+
+    // Mobile nav toggle — mirrors #nav-toggle on the rest of the site.
+    const navToggle = document.getElementById("nav-toggle");
+    const mainNav = document.getElementById("main-nav");
+    if (navToggle && mainNav) {
+      navToggle.addEventListener("click", () => {
+        const isOpen = mainNav.classList.toggle("is-open");
+        navToggle.setAttribute("aria-expanded", String(isOpen));
+      });
+    }
+
+    // Log out asks for confirmation using the browser's built-in dialog.
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      const confirmed = confirm("Are you sure you want to log out?");
+      if (confirmed) {
+        localStorage.removeItem("pahuway:loggedIn");
+        window.location.href = "index.html";
+      }
+    });
+
+    DashboardSection.init();
+  </script>
+
+</body>
+</html>
