@@ -61,14 +61,14 @@ const BookingModal = (() => {
             </div>
 
             <button type="submit" class="btn btn--primary booking-submit-block">Request to Book</button>
-            <p class="booking-form__note">No payment is collected here — this is a booking request only. Demo only, not yet connected to a backend.</p>
+            <p class="booking-form__note">Booking request only — payment is not collected here.</p>
           </form>
 
           <div class="booking-confirmation" hidden>
             <div class="booking-confirmation__icon">✓</div>
             <h3>Booking request sent</h3>
             <p class="booking-confirmation__summary"></p>
-            <p class="booking-form__note">Demo only — nothing was saved or charged.</p>
+            <p class="booking-form__note">Booking request saved — payment is not collected here.</p>
             <button type="button" class="btn btn--ghost booking-submit-block booking-confirmation__close">Close</button>
           </div>
         </div>
@@ -143,43 +143,76 @@ const BookingModal = (() => {
     return { nights, total, valid: datesValid && nights > 0 };
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const nameInput = overlayEl.querySelector("#booking-name");
-    const name = nameInput.value.trim();
-    const guests = overlayEl.querySelector("#booking-guests").value;
-    const checkin = overlayEl.querySelector("#booking-checkin").value;
-    const checkout = overlayEl.querySelector("#booking-checkout").value;
-    const summary = updateSummary();
+async function handleSubmit(e) {
 
-    if (!name) {
-      nameInput.focus();
-      return;
-    }
-    if (!checkin || !checkout || !summary.valid) {
-      overlayEl.querySelector("#booking-date-error").classList.add("is-visible");
-      return;
-    }
+  e.preventDefault();
 
-    const submitBtn = formEl.querySelector(".booking-submit-block");
-    const originalLabel = submitBtn.dataset.originalLabel || submitBtn.textContent;
-    submitBtn.dataset.originalLabel = originalLabel;
-    submitBtn.disabled = true;
-    submitBtn.classList.add("is-loading");
-    submitBtn.textContent = "Processing…";
+  const nameInput = overlayEl.querySelector("#booking-name");
+  const guestsInput = overlayEl.querySelector("#booking-guests");
+  const checkinInput = overlayEl.querySelector("#booking-checkin");
+  const checkoutInput = overlayEl.querySelector("#booking-checkout");
 
-    setTimeout(() => {
-      submitBtn.disabled = false;
-      submitBtn.classList.remove("is-loading");
-      submitBtn.textContent = originalLabel;
+  const name = nameInput.value.trim();
+  const guests = guestsInput.value;
+  const checkin = checkinInput.value;
+  const checkout = checkoutInput.value;
+  const summary = updateSummary();
 
-      formEl.hidden = true;
-      resultEl.hidden = false;
-      resultEl.querySelector(".booking-confirmation__summary").textContent =
-        `${name} · ${guests} guest${Number(guests) > 1 ? "s" : ""} · ${formatDate(checkin)} → ${formatDate(checkout)} · ₱ ${peso.format(summary.total)} total`;
-    }, 1100);
-
+  if (!name) {
+    nameInput.focus();
+    return;
   }
+
+  if (!checkin || !checkout || !summary.valid) {
+    overlayEl.querySelector("#booking-date-error").classList.add("is-visible");
+    return;
+  }
+
+  const submitBtn = formEl.querySelector(".booking-submit-block");
+  const originalLabel = submitBtn.dataset.originalLabel || submitBtn.textContent;
+
+  submitBtn.dataset.originalLabel = originalLabel;
+  submitBtn.disabled = true;
+  submitBtn.classList.add("is-loading");
+  submitBtn.textContent = "Processing…";
+
+  const formData = new FormData();
+
+  formData.append("property_id", currentProperty.id);
+  formData.append("check_in", checkin);
+  formData.append("check_out", checkout);
+  formData.append("guests", guests);
+
+  try {
+    const response = await fetch("api/create-booking.php", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || "Failed to create booking.");
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.classList.remove("is-loading");
+    submitBtn.textContent = originalLabel;
+
+    formEl.hidden = true;
+    resultEl.hidden = false;
+
+    resultEl.querySelector(".booking-confirmation__summary").textContent =
+      `${name} · ${guests} guest${Number(guests) > 1 ? "s" : ""} · ${formatDate(checkin)} → ${formatDate(checkout)} · ₱ ${peso.format(Number(data.total_amount))} total`;
+
+  } catch (error) {
+    submitBtn.disabled = false;
+    submitBtn.classList.remove("is-loading");
+    submitBtn.textContent = originalLabel;
+
+    alert(error.message);
+  }
+}
 
   function formatDate(iso) {
     return new Date(iso).toLocaleDateString("en-PH", { month: "short", day: "numeric", year: "numeric" });
