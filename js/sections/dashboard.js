@@ -97,7 +97,80 @@ async function renderProfile() {
   async function init() {
     await renderProfile();
     renderFavorites();
+    loadBookings();
   }
 
   return { init };
+
+  async function loadBookings() {
+  const list = document.getElementById("dashboard-bookings-list");
+  const empty = document.getElementById("dashboard-bookings-empty");
+  const count = document.getElementById("dashboard-bookings-count");
+
+  if (!list) return;
+
+  try {
+    const response = await fetch("api/bookings.php");
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || "Failed to load bookings.");
+    }
+
+    count.textContent = data.bookings.length;
+
+    if (data.bookings.length === 0) {
+      list.innerHTML = "";
+      empty.hidden = false;
+      return;
+    }
+
+    empty.hidden = true;
+
+    list.innerHTML = data.bookings.map((booking) => {
+      const status = booking.booking_status.charAt(0).toUpperCase() +
+        booking.booking_status.slice(1);
+
+      return `
+        <article class="dashboard-booking-card">
+          <div class="dashboard-booking-card__image">
+            <img src="${booking.image}" alt="${booking.title}">
+          </div>
+
+          <div class="dashboard-booking-card__content">
+            <span class="dashboard-booking-card__code">${booking.property_code}</span>
+            <h3>${booking.title}</h3>
+            <p>${booking.location}</p>
+
+            <div class="dashboard-booking-card__details">
+              <span>${formatBookingDate(booking.check_in)} → ${formatBookingDate(booking.check_out)}</span>
+              <span>${booking.guests} guest${booking.guests > 1 ? "s" : ""}</span>
+              <span>${booking.nights} night${booking.nights > 1 ? "s" : ""}</span>
+            </div>
+          </div>
+
+          <div class="dashboard-booking-card__side">
+            <span class="dashboard-booking-card__status status-${booking.booking_status}">
+              ${status}
+            </span>
+            <strong>₱ ${Number(booking.total_amount).toLocaleString("en-PH")}</strong>
+          </div>
+        </article>
+      `;
+    }).join("");
+
+  } catch (error) {
+    list.innerHTML = `<p>Unable to load your bookings.</p>`;
+    console.error(error);
+  }
+}
+
+function formatBookingDate(date) {
+  return new Date(date + "T00:00:00").toLocaleDateString("en-PH", {
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  });
+}
+
 })();

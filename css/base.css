@@ -186,3 +186,12 @@ p {
     transition-duration: 0.001ms !important;
   }
 }
+
+select {
+  color-scheme: dark;
+}
+
+select option {
+  background: var(--color-bg-raised);
+  color: var(--color-text);
+}

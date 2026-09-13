@@ -92,9 +92,12 @@
       <section class="dashboard-section" id="dashboard-bookings">
         <div class="dashboard-section__head">
           <h2>My Bookings</h2>
+          <span class="dashboard-section__count"><span id="dashboard-bookings-count">0</span> bookings</span>
         </div>
 
-        <div class="dashboard-empty">
+        <div class="dashboard-bookings-list" id="dashboard-bookings-list"></div>
+
+        <div class="dashboard-empty" id="dashboard-bookings-empty" hidden>
           <p>You haven't requested any bookings yet.</p>
           <a href="member-home.html#properties-near-you">Find a place to stay →</a>
         </div>
@@ -203,6 +206,7 @@
         alert("Something went wrong while logging out.");
       }
     });
+    
 
     DashboardSection.init();
   </script>
