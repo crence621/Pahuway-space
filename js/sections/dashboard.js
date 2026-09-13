@@ -76,14 +76,35 @@ async function renderProfile() {
     favorited.forEach((property) => {
       const card = PropertyCard.render(property, {
         favorited: true,
-        onToggleFavorite: (id, isFav) => {
-          const ids = getFavoriteIds();
-          isFav ? ids.add(id) : ids.delete(id);
-          saveFavoriteIds(ids);
-          if (!isFav) {
-            card.remove();
-            if (countEl) countEl.textContent = String(ids.size);
-            if (!grid.children.length && emptyState) emptyState.hidden = false;
+        onToggleFavorite: async (id, isFav) => {
+          const formData = new FormData();
+          formData.append("property_id", id);
+          formData.append("action", isFav ? "add" : "remove");
+
+          try {
+            const response = await fetch("api/favorites.php", {
+              method: "POST",
+              body: formData
+            });
+
+            const data = await response.json();
+
+            if (!data.success) {
+              alert(data.message);
+              return;
+            }
+
+            if (!isFav) {
+              card.remove();
+              if (countEl) countEl.textContent = String(grid.children.length);
+
+              if (!grid.children.length && emptyState) {
+                emptyState.hidden = false;
+              }
+            }
+          } catch (error) {
+            console.error("Favorite update error:", error);
+            alert("Unable to update favorite.");
           }
         },
         onOpenDetails: (p) => {
