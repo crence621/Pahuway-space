@@ -99,6 +99,7 @@ async function renderProfile() {
     renderFavorites();
     loadBookings();
     loadOwnerBookings();
+    loadOwnerProperties();
   }
 
   async function loadBookings() {
@@ -289,6 +290,58 @@ window.updateOwnerBookingStatus = async function(bookingId, status) {
   } catch (error) {
     console.error("UPDATE ERROR:", error);
     alert("Unable to update booking.");
+  }
+}
+
+async function loadOwnerProperties() {
+  const list = document.getElementById("dashboard-owner-properties-list");
+  const empty = document.getElementById("dashboard-owner-properties-empty");
+  const count = document.getElementById("owner-properties-count");
+
+  if (!list) return;
+
+  try {
+    const response = await fetch("api/owner-properties.php");
+    const data = await response.json();
+
+    if (!data.success) throw new Error(data.message);
+
+    count.textContent = data.properties.length;
+
+    if (data.properties.length === 0) {
+      list.innerHTML = "";
+      empty.hidden = false;
+      return;
+    }
+
+    empty.hidden = true;
+
+    list.innerHTML = data.properties.map(property => `
+      <article class="dashboard-owner-property-card">
+        <div class="dashboard-owner-property-card__image">
+          <img src="${
+            property.image.startsWith("assets/")
+              ? property.image
+              : `assets/images/${property.image}`
+          }" alt="${property.title}">
+        </div>
+
+        <div>
+          <span>${property.property_code}</span>
+          <h3>${property.title}</h3>
+          <p>${property.location}</p>
+          <strong>₱ ${Number(property.price).toLocaleString("en-PH")}</strong>
+        </div>
+
+        <span class="dashboard-owner-property-card__status">
+          ${property.status}
+        </span>
+      </article>
+    `).join("");
+
+  } catch (error) {
+    list.innerHTML = `<p>Unable to load your properties.</p>`;
+    console.error(error);
   }
 }
 

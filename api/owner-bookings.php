@@ -20,6 +20,7 @@ $stmt = $conn->prepare(
     "SELECT
         bookings.booking_id,
         bookings.property_id,
+        bookings.total_amount,
         properties.property_code,
         properties.title,
         properties.location,

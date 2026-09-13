@@ -43,7 +43,9 @@ const PahuwaySpaceData = (() => {
         baths: Number(property.bathrooms),
         area: property.area,
       },
-      image: property.image,
+      image: property.image.startsWith("assets/")
+        ? property.image
+        : `assets/images/${property.image}`,
       verified: Boolean(property.verified),
       status: property.status,
       agent: {
