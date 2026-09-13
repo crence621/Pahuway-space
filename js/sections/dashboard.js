@@ -98,9 +98,8 @@ async function renderProfile() {
     await renderProfile();
     renderFavorites();
     loadBookings();
+    loadOwnerBookings();
   }
-
-  return { init };
 
   async function loadBookings() {
   const list = document.getElementById("dashboard-bookings-list");
@@ -165,6 +164,91 @@ async function renderProfile() {
   }
 }
 
+async function loadOwnerBookings() {
+  const list = document.getElementById("dashboard-owner-bookings-list");
+  const empty = document.getElementById("dashboard-owner-bookings-empty");
+  const count = document.getElementById("owner-bookings-count");
+
+  if (!list) return;
+
+  try {
+    const response = await fetch("api/owner-bookings.php");
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error(data.message || "Failed to load booking requests.");
+    }
+
+    count.textContent = data.bookings.length;
+
+    if (data.bookings.length === 0) {
+      list.innerHTML = "";
+      empty.hidden = false;
+      return;
+    }
+
+    empty.hidden = true;
+
+    list.innerHTML = data.bookings.map((booking) => {
+      const status =
+        booking.booking_status.charAt(0).toUpperCase() +
+        booking.booking_status.slice(1);
+
+      return `
+        <article class="dashboard-owner-booking-card">
+          <div class="dashboard-owner-booking-card__image">
+            <img src="${booking.image}" alt="${booking.title}">
+          </div>
+
+          <div class="dashboard-owner-booking-card__content">
+            <span class="dashboard-owner-booking-card__code">
+              ${booking.property_code}
+            </span>
+
+            <h3>${booking.title}</h3>
+            <p>${booking.location}</p>
+
+            <div class="dashboard-owner-booking-card__guest">
+              <strong>Guest</strong>
+              <span>${booking.guest_name}</span>
+              <span>${booking.guest_email}</span>
+            </div>
+
+            <div class="dashboard-owner-booking-card__details">
+              <span>${formatBookingDate(booking.check_in)} → ${formatBookingDate(booking.check_out)}</span>
+              <span>${booking.guests} guest${booking.guests > 1 ? "s" : ""}</span>
+              <span>${booking.nights} night${booking.nights > 1 ? "s" : ""}</span>
+            </div>
+          </div>
+
+          <div class="dashboard-owner-booking-card__side">
+            <span class="dashboard-owner-booking-card__status status-${booking.booking_status}">
+              ${status}
+            </span>
+
+            <strong>₱ ${Number(booking.total_amount).toLocaleString("en-PH")}</strong>
+
+            ${
+              booking.booking_status === "pending"
+                ? `
+                  <div class="dashboard-owner-booking-card__actions">
+                    <button type="button" onclick="updateOwnerBookingStatus(${booking.booking_id}, 'confirmed')">Confirm</button>
+                    <button type="button" onclick="updateOwnerBookingStatus(${booking.booking_id}, 'cancelled')">Cancel</button>
+                  </div>
+                `
+                : ""
+            }
+          </div>
+        </article>
+      `;
+    }).join("");
+
+  } catch (error) {
+    list.innerHTML = `<p>Unable to load booking requests.</p>`;
+    console.error(error);
+  }
+}
+
 function formatBookingDate(date) {
   return new Date(date + "T00:00:00").toLocaleDateString("en-PH", {
     month: "short",
@@ -172,5 +256,42 @@ function formatBookingDate(date) {
     year: "numeric"
   });
 }
+
+window.updateOwnerBookingStatus = async function(bookingId, status) {
+  console.log("UPDATE CLICKED", bookingId, status);
+
+  const formData = new FormData();
+  formData.append("booking_id", bookingId);
+  formData.append("status", status);
+
+  try {
+    const response = await fetch("api/update-booking-status.php", {
+      method: "POST",
+      body: formData
+    });
+
+    console.log("RESPONSE STATUS:", response.status);
+
+    const text = await response.text();
+    console.log("RESPONSE:", text);
+
+    const data = JSON.parse(text);
+
+    if (!data.success) {
+      alert(data.message);
+      return;
+    }
+
+    alert("Booking updated!");
+    loadOwnerBookings();
+    loadBookings();
+
+  } catch (error) {
+    console.error("UPDATE ERROR:", error);
+    alert("Unable to update booking.");
+  }
+}
+
+return { init };
 
 })();
