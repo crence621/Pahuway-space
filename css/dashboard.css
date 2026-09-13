@@ -450,12 +450,43 @@
 }
 
 .dashboard-owner-property-card__status {
-  padding: 6px 10px;
+  padding: 7px 12px;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 700;
   text-transform: capitalize;
-  background: #eee;
-  color: #555;
+}
+
+.dashboard-owner-property-card__status.status-available {
+  background: #dff3e3;
+  color: #247a3b;
+}
+
+.dashboard-owner-property-card__status.status-rented {
+  background: #f8dddd;
+  color: #b33232;
+}
+
+.dashboard-owner-property-card__status:where([class*="rented"]) {
+  background: #f8dddd;
+  color: #b33232;
+}
+
+.dashboard-owner-property-card__actions button {
+  padding: 9px 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 9px;
+  background: #fff;
+  color: #333;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.dashboard-owner-property-card__actions button:hover {
+  background: #f1f1f1;
+  transform: translateY(-1px);
 }
 
 @media (max-width: 700px) {
@@ -470,5 +501,27 @@
 
   .dashboard-owner-property-card__status {
     justify-self: start;
+  }
+}
+
+.dashboard-owner-property-card__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.dashboard-owner-property-card__actions button {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f5f5f5;
+  color: #333;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .dashboard-owner-property-card__actions {
+    align-items: flex-start;
   }
 }

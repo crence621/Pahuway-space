@@ -333,9 +333,16 @@ async function loadOwnerProperties() {
           <strong>₱ ${Number(property.price).toLocaleString("en-PH")}</strong>
         </div>
 
-        <span class="dashboard-owner-property-card__status">
-          ${property.status}
-        </span>
+        <div class="dashboard-owner-property-card__actions">
+          <span class="dashboard-owner-property-card__status status-${property.status}">
+            ${property.status}
+          </span>
+
+          <button type="button"
+            onclick="updatePropertyStatus(${property.property_id}, '${property.status === "available" ? "rented" : "available"}')">
+            Mark as ${property.status === "available" ? "Rented" : "Available"}
+          </button>
+        </div>
       </article>
     `).join("");
 
@@ -344,6 +351,31 @@ async function loadOwnerProperties() {
     console.error(error);
   }
 }
+
+window.updatePropertyStatus = async function(propertyId, status) {
+  const formData = new FormData();
+  formData.append("property_id", propertyId);
+  formData.append("status", status);
+
+  try {
+    const response = await fetch("api/update-property-status.php", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+
+    if (!data.success) {
+      alert(data.message);
+      return;
+    }
+
+    loadOwnerProperties();
+  } catch (error) {
+    console.error(error);
+    alert("Unable to update property.");
+  }
+};
 
 return { init };
 
