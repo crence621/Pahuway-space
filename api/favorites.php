@@ -63,9 +63,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->bind_param("ii", $user_id, $property_id);
 
     if (!$stmt->execute()) {
-        echo json_encode(["success" => false, "message" => "Failed to update favorite."]);
-        exit;
-    }
+    echo json_encode([
+        "success" => false,
+        "message" => $stmt->error
+    ]);
+    exit;
+}
 
     echo json_encode([
         "success" => true,

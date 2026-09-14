@@ -133,6 +133,10 @@ const PahuwaySpaceData = (() => {
   const asPromise = (data) => Promise.resolve(data);
 
   return {
+  getAllProperties: async () => {
+    return await getPropertiesFromAPI();
+  },
+
   getPropertiesNearYou: async () => {
     const properties = await getPropertiesFromAPI();
 

@@ -147,6 +147,19 @@ async function handleSubmit(e) {
 
   e.preventDefault();
 
+    try {
+    const response = await fetch("api/session.php");
+    const data = await response.json();
+
+    if (!data.loggedIn) {
+      window.location.href = "login.html";
+      return;
+    }
+  } catch (error) {
+    alert("Unable to verify your login. Please try again.");
+    return;
+  }
+
   const nameInput = overlayEl.querySelector("#booking-name");
   const guestsInput = overlayEl.querySelector("#booking-guests");
   const checkinInput = overlayEl.querySelector("#booking-checkin");
@@ -264,7 +277,7 @@ async function handleSubmit(e) {
     document.body.style.overflow = "hidden";
     requestAnimationFrame(() => overlayEl.classList.add("is-open"));
   }
-
+  
   function close() {
     if (!overlayEl) return;
     overlayEl.classList.remove("is-open");

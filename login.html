@@ -255,6 +255,13 @@
 
     tabLogin.addEventListener("click", () => setMode("login"));
     tabSignup.addEventListener("click", () => setMode("signup"));
+
+    const urlMode = new URLSearchParams(window.location.search).get("mode");
+
+    if (urlMode === "signup") {
+      setMode("signup");
+    }
+
     switchToSignup.addEventListener("click", () => setMode("signup"));
     document.addEventListener("click", (e) => {
       if (e.target && e.target.id === "switch-to-login") setMode("login");

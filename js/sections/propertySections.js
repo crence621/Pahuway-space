@@ -6,17 +6,43 @@
  * ------------------------------------------------------------------ */
 
 const PropertySections = (() => {
-  const favorites = new Set(JSON.parse(localStorage.getItem("pahuway:favorites") || "[]"));
+  async function getFavoriteIds() {
+    try {
+      const response = await fetch("api/favorites.php");
+      const data = await response.json();
 
-  function persistFavorites() {
-    localStorage.setItem("pahuway:favorites", JSON.stringify([...favorites]));
+      if (!data.success) return new Set();
+
+      return new Set(data.favorites.map(Number));
+    } catch (error) {
+      console.error("Failed to load favorites:", error);
+      return new Set();
+    }
   }
 
-  function onToggleFavorite(id, isFav) {
-    isFav ? favorites.add(id) : favorites.delete(id);
-    persistFavorites();
-  }
+  async function onToggleFavorite(id, isFav) {
+    console.log("TOGGLE FAVORITE", id, isFav);
+    
+    const formData = new FormData();
+    formData.append("property_id", id);
+    formData.append("action", isFav ? "add" : "remove");
 
+    try {
+      const response = await fetch("api/favorites.php", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (!data.success) {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Favorite update error:", error);
+      alert("Unable to update favorite.");
+    }
+}
   function onOpenDetails(property) {
     if (typeof window.onPropertyCardOpen === "function") {
       window.onPropertyCardOpen(property);
@@ -33,6 +59,7 @@ const PropertySections = (() => {
 
     try {
       const properties = await fetchData();
+      const favorites = await getFavoriteIds();
       track.innerHTML = "";
       properties.forEach((property) => {
         const card = PropertyCard.render(property, {

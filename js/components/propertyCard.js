@@ -93,9 +93,11 @@ const PropertyCard = (() => {
 
     const favBtn = el.querySelector(".property-card__fav");
     favBtn.addEventListener("click", (e) => {
+      console.log("FAVORITE CLICKED", property.id);
       e.stopPropagation(); // ---- ADDED: don't also open the modal ----
       const next = favBtn.getAttribute("aria-pressed") !== "true";
       favBtn.setAttribute("aria-pressed", String(next));
+      console.log("CALLBACK:", opts.onToggleFavorite);
       if (typeof opts.onToggleFavorite === "function") {
         opts.onToggleFavorite(property.id, next);
       }

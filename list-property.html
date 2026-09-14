@@ -25,6 +25,19 @@
 
   <!-- Listing page styles -->
   <link rel="stylesheet" href="css/list-property.css" />
+
+  <script>
+  fetch("api/session.php")
+    .then(response => response.json())
+    .then(data => {
+      if (!data.loggedIn) {
+        window.location.href = "login.html";
+      }
+    })
+    .catch(() => {
+      window.location.href = "login.html";
+    });
+  </script>
 </head>
 
 <body>

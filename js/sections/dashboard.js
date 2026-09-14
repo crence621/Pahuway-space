@@ -1,11 +1,5 @@
 const DashboardSection = (() => {
-  function getFavoriteIds() {
-    return new Set(JSON.parse(localStorage.getItem("pahuway:favorites") || "[]"));
-  }
 
-  function saveFavoriteIds(ids) {
-    localStorage.setItem("pahuway:favorites", JSON.stringify([...ids]));
-  }
 
 async function renderProfile() {
   try {
@@ -61,8 +55,23 @@ async function renderProfile() {
     ]);
 
     const allProperties = [...near, ...featured, ...rented];
-    const favoriteIds = getFavoriteIds();
-    const favorited = allProperties.filter((p) => favoriteIds.has(p.id));
+
+    let favoriteIds = new Set();
+
+    try {
+      const response = await fetch("api/favorites.php");
+      const data = await response.json();
+
+      if (data.success) {
+        favoriteIds = new Set(data.favorites.map(Number));
+      }
+    } catch (error) {
+      console.error("Failed to load favorites:", error);
+    }
+
+    const favorited = allProperties.filter((p) =>
+      favoriteIds.has(Number(p.id))
+    );
 
     if (countEl) countEl.textContent = String(favorited.length);
     grid.innerHTML = "";
