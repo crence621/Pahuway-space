@@ -29,7 +29,7 @@ $check_in = trim($_POST["check_in"] ?? "");
 $check_out = trim($_POST["check_out"] ?? "");
 $guests = $_POST["guests"] ?? "";
 
-if ($property_id === "" || $check_in === "" || $check_out === "" || $guests === "") {
+if ($property_id === "" || $check_in === "" || $guests === "") {
     echo json_encode([
         "success" => false,
         "message" => "Please complete all booking fields."
@@ -77,15 +77,19 @@ if ($property["status"] !== "available") {
     exit;
 }
 
-$checkInDate = DateTime::createFromFormat("Y-m-d", $check_in);
-$checkOutDate = DateTime::createFromFormat("Y-m-d", $check_out);
+$is_monthly = $property["price_unit"] === "monthly";
 
-if (
-    !$checkInDate ||
-    !$checkOutDate ||
-    $checkInDate->format("Y-m-d") !== $check_in ||
-    $checkOutDate->format("Y-m-d") !== $check_out
-) {
+if (!$is_monthly && $check_out === "") {
+    echo json_encode([
+        "success" => false,
+        "message" => "Please complete all booking fields."
+    ]);
+    exit;
+}
+
+$checkInDate = DateTime::createFromFormat("Y-m-d", $check_in);
+
+if (!$checkInDate || $checkInDate->format("Y-m-d") !== $check_in) {
     echo json_encode([
         "success" => false,
         "message" => "Invalid booking dates."
@@ -93,35 +97,62 @@ if (
     exit;
 }
 
-if ($checkOutDate <= $checkInDate) {
-    echo json_encode([
-        "success" => false,
-        "message" => "Check-out must be after check-in."
-    ]);
-    exit;
-}
-
-$nights = $checkInDate->diff($checkOutDate)->days;
-
 $price = (float) $property["price"];
 
-if ($property["price_unit"] === "daily") {
-    $total_amount = $price * $nights;
+if ($is_monthly) {
+
+    // Monthly
+    $check_out = null;
+    $nights = 0;
+    $total_amount = $price;
+
+    $overlap = $conn->prepare(
+        "SELECT booking_id
+         FROM bookings
+         WHERE property_id = ?
+           AND booking_status IN ('pending', 'confirmed')
+           AND (check_out IS NULL OR check_out > ?)
+         LIMIT 1"
+    );
+
+    $overlap->bind_param("is", $property_id, $check_in);
+
 } else {
-    $total_amount = ($price / 30) * $nights;
+
+    $checkOutDate = DateTime::createFromFormat("Y-m-d", $check_out);
+
+    if (!$checkOutDate || $checkOutDate->format("Y-m-d") !== $check_out) {
+        echo json_encode([
+            "success" => false,
+            "message" => "Invalid booking dates."
+        ]);
+        exit;
+    }
+
+    if ($checkOutDate <= $checkInDate) {
+        echo json_encode([
+            "success" => false,
+            "message" => "Check-out must be after check-in."
+        ]);
+        exit;
+    }
+
+    $nights = $checkInDate->diff($checkOutDate)->days;
+    $total_amount = $price * $nights;
+
+    $overlap = $conn->prepare(
+        "SELECT booking_id
+         FROM bookings
+         WHERE property_id = ?
+           AND booking_status IN ('pending', 'confirmed')
+           AND check_in < ?
+           AND (check_out IS NULL OR check_out > ?)
+         LIMIT 1"
+    );
+
+    $overlap->bind_param("iss", $property_id, $check_out, $check_in);
 }
 
-$overlap = $conn->prepare(
-    "SELECT booking_id
-     FROM bookings
-     WHERE property_id = ?
-       AND booking_status IN ('pending', 'confirmed')
-       AND check_in < ?
-       AND check_out > ?
-     LIMIT 1"
-);
-
-$overlap->bind_param("iss", $property_id, $check_out, $check_in);
 $overlap->execute();
 $overlap->store_result();
 
