@@ -523,5 +523,13 @@
 @media (max-width: 700px) {
   .dashboard-owner-property-card__actions {
     align-items: flex-start;
-  }
+  
+}
+
+/* ---------- Admin Panel link (admins only) ---------- */
+.dashboard-admin-btn {
+  margin-left: 0;
+  white-space: nowrap;
+}
+.dashboard-admin-btn[hidden] { display: none; }
 }

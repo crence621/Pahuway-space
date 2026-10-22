@@ -21,35 +21,28 @@ const PropertySections = (() => {
   }
 
   async function onToggleFavorite(id, isFav) {
-  try {
-    const sessionResponse = await fetch("api/session.php");
-    const sessionData = await sessionResponse.json();
-
-    if (!sessionData.loggedIn) {
-      window.location.href = "login.html";
-      return;
-    }
-
+    console.log("TOGGLE FAVORITE", id, isFav);
+    
     const formData = new FormData();
     formData.append("property_id", id);
     formData.append("action", isFav ? "add" : "remove");
 
-    const response = await fetch("api/favorites.php", {
-      method: "POST",
-      body: formData
-    });
+    try {
+      const response = await fetch("api/favorites.php", {
+        method: "POST",
+        body: formData
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (!data.success) {
-      alert(data.message);
+      if (!data.success) {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Favorite update error:", error);
+      alert("Unable to update favorite.");
     }
-  } catch (error) {
-    console.error("Favorite update error:", error);
-    alert("Unable to update favorite.");
-  }
 }
-
   function onOpenDetails(property) {
     if (typeof window.onPropertyCardOpen === "function") {
       window.onPropertyCardOpen(property);

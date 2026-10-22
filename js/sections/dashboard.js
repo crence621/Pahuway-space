@@ -1,5 +1,7 @@
 const DashboardSection = (() => {
 
+let currentUser = null;
+
 
 async function renderProfile() {
   try {
@@ -12,8 +14,20 @@ async function renderProfile() {
       return;
     }
 
+    currentUser = data.user;
+
     const name = data.user.full_name;
     const email = data.user.email;
+
+    const badgeEl = document.getElementById("dashboard-profile-badge");
+    if (badgeEl && data.user.account_type === "admin") {
+      badgeEl.textContent = "Administrator";
+    }
+
+    const adminBtn = document.getElementById("dashboard-admin-btn");
+    if (adminBtn && data.user.account_type === "admin") {
+      adminBtn.hidden = false;
+    }
 
     const nameEl = document.getElementById("dashboard-user-name");
     const emailEl = document.getElementById("dashboard-user-email");
