@@ -17,6 +17,14 @@
 const PahuwaySpaceData = (() => {
   const IMG = "assets/images/";
 
+  // DB value -> "included" (covered by rent) | "separate" (paid separately) | "none" (not available)
+  function billStatus(value) {
+    const n = Number(value);
+    if (n === 1) return "included";
+    if (n === 2) return "none";
+    return "separate";
+  }
+
   async function getPropertiesFromAPI() {
     const response = await fetch("api/properties.php");
 
@@ -48,6 +56,20 @@ const PahuwaySpaceData = (() => {
         : `assets/images/${property.image}`,
       verified: Boolean(property.verified),
       status: property.status,
+      pets: {
+        allowed: Boolean(property.pets_allowed),
+        conditions: property.pet_conditions || "",
+      },
+      parking: {
+        nearby: Boolean(property.parking_nearby),
+        fee: property.parking_fee || "",
+      },
+      bills: {
+        electricity: billStatus(property.electricity_included),
+        water: billStatus(property.water_included),
+        internet: billStatus(property.internet_included),
+      },
+      amenities: Array.isArray(property.amenities) ? property.amenities : [],
       agent: {
         name: property.owner_name || "Pahuway Space",
         role: "Property Owner",
@@ -67,6 +89,10 @@ const PahuwaySpaceData = (() => {
    *  @property {string} image
    *  @property {boolean} verified
    *  @property {"available"|"rented"} status
+   *  @property {{allowed:boolean, conditions:string}} pets
+   *  @property {{nearby:boolean, fee:""|"free"|"paid"}} parking
+   *  @property {{electricity:string, water:string, internet:string}} bills  "included" | "separate" | "none"
+   *  @property {string[]} amenities  keys: aircon, heating, refrigerator, microwave, washing_machine, tv
    *  @property {{name:string, role:string}} agent
    */
 
