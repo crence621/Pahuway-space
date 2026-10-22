@@ -4,12 +4,6 @@ session_start();
 
 require_once "db.php";
 
-/*
-| Bills: 1 = covered by rent, 0 = paid separately.
-| Internet only: 2 = not available (the owner unticked "Has internet",
-| so the field is not sent).
-*/
-
 function bill_value($value, $allow_none = false)
 {
     if ($value === "1") return 1;
