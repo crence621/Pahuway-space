@@ -117,15 +117,15 @@
 
         <div class="listing-heading">
 
-          <span class="hero__eyebrow">
+          <span class="hero__eyebrow" id="listing-eyebrow">
             Share your space
           </span>
 
-          <h1>
+          <h1 id="listing-title">
             List your <span class="accent">property.</span>
           </h1>
 
-          <p>
+          <p id="listing-intro">
             Have a space you'd like to share? Add your property to
             Pahuway Space and let renters discover their next place to stay.
           </p>
@@ -227,7 +227,7 @@
                     id="description"
                     name="description"
                     rows="5"
-                    placeholder="Describe the property, its surroundings, amenities, and anything renters should know."
+                    placeholder="Provide a brief description of the property, including its layout, atmosphere, and other details renters may want to know."
                   ></textarea>
 
                 </div>
@@ -347,6 +347,163 @@
 
                 </div>
 
+
+                <!-- Pets -->
+
+                <div class="listing-field listing-field--full">
+
+                  <label class="listing-check" for="pets_allowed">
+                    <input
+                      type="checkbox"
+                      id="pets_allowed"
+                      name="pets_allowed"
+                      value="1"
+                    />
+                    <span>Pets allowed</span>
+                  </label>
+
+                  <div class="listing-subfield" id="pet-conditions-wrap" hidden>
+
+                    <label for="pet_conditions">
+                      Pet conditions (optional)
+                    </label>
+
+                    <input
+                      type="text"
+                      id="pet_conditions"
+                      name="pet_conditions"
+                      maxlength="255"
+                      placeholder="e.g. only small animals"
+                    />
+
+                  </div>
+
+                </div>
+
+
+                <!-- Parking -->
+
+                <div class="listing-field listing-field--full">
+
+                  <label class="listing-check" for="parking_nearby">
+                    <input
+                      type="checkbox"
+                      id="parking_nearby"
+                      name="parking_nearby"
+                      value="1"
+                    />
+                    <span>Parking nearby</span>
+                  </label>
+
+                  <div class="listing-subfield" id="parking-fee-wrap" hidden>
+
+                    <label for="parking_fee">
+                      Is the parking free or paid?
+                    </label>
+
+                    <select id="parking_fee" name="parking_fee">
+                      <option value="free">Free</option>
+                      <option value="paid">Paid</option>
+                    </select>
+
+                  </div>
+
+                </div>
+
+                <!-- Bills -->
+
+                <div class="listing-bills">
+
+                  <h3 class="listing-subheading">Bills</h3>
+                  <p class="listing-subnote">
+                    Say if each bill is covered by the rent or paid separately.
+                    Untick "Has internet" if the property has no internet.
+                  </p>
+
+                  <div class="listing-grid listing-grid--three">
+
+                    <div class="listing-field">
+                      <label for="electricity_included">Electricity</label>
+                      <select id="electricity_included" name="electricity_included">
+                        <option value="1">Covered by Rent</option>
+                        <option value="0" selected>Paid Separately</option>
+                      </select>
+                    </div>
+
+                    <div class="listing-field">
+                      <label for="water_included">Water</label>
+                      <select id="water_included" name="water_included">
+                        <option value="1">Covered by Rent</option>
+                        <option value="0" selected>Paid Separately</option>
+                      </select>
+                    </div>
+
+                    <div class="listing-field listing-bill" data-bill="internet">
+                      <label class="listing-check" for="has_internet">
+                        <input type="checkbox" id="has_internet" checked />
+                        <span>Has internet</span>
+                      </label>
+                      <select id="internet_included" name="internet_included">
+                        <option value="1">Covered by Rent</option>
+                        <option value="0" selected>Paid Separately</option>
+                        <option value="none" hidden>Not available</option>
+                      </select>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <!-- ================= AMENITIES & FACILITIES ================= -->
+
+              <div class="listing-section">
+
+                <div class="listing-section__heading">
+                  <span class="listing-section__number">03</span>
+
+                  <div>
+                    <h2>Amenities &amp; facilities</h2>
+                    <p>Tick everything your property comes with. Wi-Fi is shown automatically when the property has internet.</p>
+                  </div>
+                </div>
+
+                <div class="listing-amenities">
+
+                  <label class="listing-check" for="amenity_aircon">
+                    <input type="checkbox" id="amenity_aircon" name="amenities[]" value="aircon" />
+                    <span>Air conditioning</span>
+                  </label>
+
+                  <label class="listing-check" for="amenity_heating">
+                    <input type="checkbox" id="amenity_heating" name="amenities[]" value="heating" />
+                    <span>Heating (water heating)</span>
+                  </label>
+
+                  <label class="listing-check" for="amenity_refrigerator">
+                    <input type="checkbox" id="amenity_refrigerator" name="amenities[]" value="refrigerator" />
+                    <span>Refrigerator</span>
+                  </label>
+
+                  <label class="listing-check" for="amenity_microwave">
+                    <input type="checkbox" id="amenity_microwave" name="amenities[]" value="microwave" />
+                    <span>Microwave</span>
+                  </label>
+
+                  <label class="listing-check" for="amenity_washing_machine">
+                    <input type="checkbox" id="amenity_washing_machine" name="amenities[]" value="washing_machine" />
+                    <span>Automatic washing machine</span>
+                  </label>
+
+                  <label class="listing-check" for="amenity_tv">
+                    <input type="checkbox" id="amenity_tv" name="amenities[]" value="tv" />
+                    <span>TV</span>
+                  </label>
+
+                </div>
+
               </div>
 
 
@@ -355,7 +512,7 @@
               <div class="listing-section">
 
                 <div class="listing-section__heading">
-                  <span class="listing-section__number">03</span>
+                  <span class="listing-section__number">04</span>
 
                   <div>
                     <h2>Property image</h2>
@@ -393,6 +550,14 @@
                 type="hidden"
                 id="property_code"
                 name="property_code"
+              />
+
+              <!-- Filled in only when editing an existing property -->
+              <input
+                type="hidden"
+                id="property_id"
+                name="property_id"
+                disabled
               />
 
 
@@ -648,6 +813,136 @@
     document.getElementById("property_code").value =
       generatePropertyCode();
 
+    const petsCheckbox = document.getElementById("pets_allowed");
+    const petConditionsWrap = document.getElementById("pet-conditions-wrap");
+    const parkingCheckbox = document.getElementById("parking_nearby");
+    const parkingFeeWrap = document.getElementById("parking-fee-wrap");
+
+    function syncPetParkingFields() {
+      petConditionsWrap.hidden = !petsCheckbox.checked;
+      parkingFeeWrap.hidden = !parkingCheckbox.checked;
+    }
+
+    petsCheckbox.addEventListener("change", syncPetParkingFields);
+    parkingCheckbox.addEventListener("change", syncPetParkingFields);
+
+    const billRows = document.querySelectorAll(".listing-bill");
+
+    function syncBill(row) {
+      const box = row.querySelector('input[type="checkbox"]');
+      const select = row.querySelector("select");
+
+      if (box.checked) {
+        select.disabled = false;
+        if (select.value === "none") select.value = "0";
+      } else {
+        select.value = "none";
+        select.disabled = true;
+      }
+    }
+
+    function syncBills() {
+      billRows.forEach(syncBill);
+    }
+
+    billRows.forEach((row) => {
+      row
+        .querySelector('input[type="checkbox"]')
+        .addEventListener("change", () => syncBill(row));
+    });
+
+    syncBills();
+
+    const editId = Number(
+      new URLSearchParams(window.location.search).get("edit")
+    ) || 0;
+
+    const isEditing = editId > 0;
+
+    function setField(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.value = value ?? "";
+    }
+
+    async function loadPropertyForEdit() {
+
+      document.getElementById("listing-eyebrow").textContent = "Edit your space";
+      document.getElementById("listing-title").innerHTML =
+        'Edit your <span class="accent">property.</span>';
+      document.getElementById("listing-intro").textContent =
+        "Update the details of your listing. Changes show up right away.";
+      document.getElementById("submit-property").textContent = "Save changes";
+      document.title = "Edit Property — Pahuway Space";
+
+      const idInput = document.getElementById("property_id");
+      idInput.disabled = false;
+      idInput.value = editId;
+
+      try {
+
+        const response = await fetch("api/owner-properties.php");
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.message || "Unable to load property.");
+        }
+
+        const property = data.properties.find(
+          (item) => item.property_id === editId
+        );
+
+        if (!property) {
+          throw new Error("Property not found or you do not own it.");
+        }
+
+        setField("title", property.title);
+        setField("property_type", property.property_type);
+        setField("location", property.location);
+        setField("description", property.description);
+        setField("price", property.price);
+        setField("price_unit", property.price_unit);
+        setField("area", property.area);
+        setField("bedrooms", property.bedrooms);
+        setField("bathrooms", property.bathrooms);
+        setField("image", property.image);
+        setField("property_code", property.property_code);
+
+        petsCheckbox.checked = property.pets_allowed;
+        setField("pet_conditions", property.pet_conditions);
+        parkingCheckbox.checked = property.parking_nearby;
+        setField("parking_fee", property.parking_fee || "free");
+        syncPetParkingFields();
+
+        setField("electricity_included", property.electricity_included === 1 ? "1" : "0");
+        setField("water_included", property.water_included === 1 ? "1" : "0");
+
+        document.getElementById("has_internet").checked =
+          property.internet_included !== 2;
+        setField("internet_included", property.internet_included === 1 ? "1" : "0");
+
+        syncBills();
+
+        document
+          .querySelectorAll('input[name="amenities[]"]')
+          .forEach((box) => {
+            box.checked = property.amenities.includes(box.value);
+          });
+
+      } catch (error) {
+
+        console.error("Failed to load property:", error);
+
+        message.textContent =
+          error.message || "Unable to load this property.";
+        message.className = "listing-message listing-message--error";
+        message.hidden = false;
+
+        submitButton.disabled = true;
+
+      }
+
+    }
+
 
     /* Submit property */
 
@@ -661,13 +956,20 @@
       document.getElementById("listing-message");
 
 
+    if (isEditing) {
+      loadPropertyForEdit();
+    }
+
+
     propertyForm.addEventListener("submit", async (event) => {
 
       event.preventDefault();
 
 
       submitButton.disabled = true;
-      submitButton.textContent = "Listing property...";
+      submitButton.textContent = isEditing
+        ? "Saving changes..."
+        : "Listing property...";
 
       message.hidden = true;
       message.className = "listing-message";
@@ -679,7 +981,7 @@
       try {
 
         const response = await fetch(
-          "api/create-property.php",
+          isEditing ? "api/update-property.php" : "api/create-property.php",
           {
             method: "POST",
             body: formData
@@ -692,8 +994,9 @@
 
         if (data.success) {
 
-          message.textContent =
-            "Your property has been listed successfully!";
+          message.textContent = isEditing
+            ? "Your property has been updated!"
+            : "Your property has been listed successfully!";
 
           message.classList.add(
             "listing-message--success"
@@ -702,20 +1005,29 @@
           message.hidden = false;
 
 
-          propertyForm.reset();
+          if (!isEditing) {
+
+            propertyForm.reset();
+
+            syncPetParkingFields();
+            syncBills();
+
+            document.getElementById("property_code").value =
+              generatePropertyCode();
+
+          }
 
 
-          document.getElementById("property_code").value =
-            generatePropertyCode();
-
-
-          submitButton.textContent = "Property listed";
+          submitButton.textContent = isEditing
+            ? "Changes saved"
+            : "Property listed";
 
 
           setTimeout(() => {
 
-            window.location.href =
-              "member-home.html";
+            window.location.href = isEditing
+              ? "dashboard.html"
+              : "member-home.html";
 
           }, 1500);
 
@@ -723,7 +1035,9 @@
         } else {
 
           message.textContent =
-            data.message || "Failed to list property.";
+            data.message || (isEditing
+              ? "Failed to update property."
+              : "Failed to list property.");
 
           message.classList.add(
             "listing-message--error"
@@ -732,7 +1046,7 @@
           message.hidden = false;
 
           submitButton.disabled = false;
-          submitButton.textContent = "List property";
+          submitButton.textContent = isEditing ? "Save changes" : "List property";
 
         }
 
@@ -756,7 +1070,7 @@
 
 
         submitButton.disabled = false;
-        submitButton.textContent = "List property";
+        submitButton.textContent = isEditing ? "Save changes" : "List property";
 
       }
 
