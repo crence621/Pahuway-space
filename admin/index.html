@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Admin Panel | Pahuway Space</title>
+  <link rel="icon" href="../assets/images/Pahuway_Space_LOGO.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/base.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <header class="adm-top">
+    <div class="adm-top__inner">
+      <a href="../dashboard.html" class="adm-back">← Back to my account</a>
+      <h1>Admin Panel</h1>
+      <span class="adm-top__who" id="adm-who"></span>
+    </div>
+  </header>
+
+  <main class="adm-main" id="adm-main" hidden>
+    <nav class="adm-tabs" id="adm-tabs" aria-label="Database tables"></nav>
+
+    <div class="adm-toolbar">
+      <input type="search" id="adm-search" placeholder="Search this table" aria-label="Search" autocomplete="off" />
+      <span class="adm-count" id="adm-count"></span>
+      <button type="button" class="adm-btn adm-btn--primary" id="adm-add">+ Add row</button>
+    </div>
+
+    <div class="adm-table-wrap">
+      <table class="adm-table" id="adm-table"></table>
+    </div>
+
+    <div class="adm-pager">
+      <button type="button" class="adm-btn" id="adm-prev">← Prev</button>
+      <span id="adm-page"></span>
+      <button type="button" class="adm-btn" id="adm-next">Next →</button>
+    </div>
+  </main>
+
+  <p class="adm-denied" id="adm-denied" hidden></p>
+
+  <!-- Add / edit -->
+  <dialog class="adm-dialog" id="adm-edit-dialog">
+    <form id="adm-edit-form" method="dialog">
+      <h2 id="adm-edit-title"></h2>
+      <div class="adm-fields" id="adm-fields"></div>
+      <label class="adm-field" id="adm-newpw-wrap" hidden>
+        <span>New password <small>(leave blank to keep the current one)</small></span>
+        <input type="password" id="adm-newpw" autocomplete="new-password" />
+      </label>
+      <label class="adm-field">
+        <span>Confirm with your password</span>
+        <input type="password" id="adm-confirm-pw" autocomplete="current-password" required />
+      </label>
+      <p class="adm-error" id="adm-edit-error" role="alert" hidden></p>
+      <div class="adm-actions">
+        <button type="button" class="adm-btn" id="adm-edit-cancel">Cancel</button>
+        <button type="submit" class="adm-btn adm-btn--primary" id="adm-edit-save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Delete -->
+  <dialog class="adm-dialog" id="adm-del-dialog">
+    <form id="adm-del-form" method="dialog">
+      <h2>Delete this row?</h2>
+      <p id="adm-del-msg" class="adm-muted"></p>
+      <label class="adm-field">
+        <span>Confirm with your password</span>
+        <input type="password" id="adm-del-pw" autocomplete="current-password" required />
+      </label>
+      <p class="adm-error" id="adm-del-error" role="alert" hidden></p>
+      <div class="adm-actions">
+        <button type="button" class="adm-btn" id="adm-del-cancel">Cancel</button>
+        <button type="submit" class="adm-btn adm-btn--danger">Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="admin.js"></script>
+</body>
+</html>

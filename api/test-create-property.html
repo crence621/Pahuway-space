@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Create Property</title>
+</head>
+<body>
+
+<h2>Test Property Creation</h2>
+
+<form action="create-property.php" method="POST">
+
+    <label>Property Code:</label><br>
+    <input type="text" name="property_code" value="TEST-001"><br><br>
+
+    <label>Property Type:</label><br>
+    <input type="text" name="property_type" value="Apartment"><br><br>
+
+    <label>Title:</label><br>
+    <input type="text" name="title" value="Test Property"><br><br>
+
+    <label>Location:</label><br>
+    <input type="text" name="location" value="Test Location"><br><br>
+
+    <label>Description:</label><br>
+    <textarea name="description">This is a test property.</textarea><br><br>
+
+    <label>Price:</label><br>
+    <input type="number" name="price" value="10000"><br><br>
+
+    <label>Price Unit:</label><br>
+    <select name="price_unit">
+        <option value="monthly">Monthly</option>
+        <option value="daily">Daily</option>
+    </select><br><br>
+
+    <label>Bedrooms:</label><br>
+    <input type="number" name="bedrooms" value="2"><br><br>
+
+    <label>Bathrooms:</label><br>
+    <input type="number" name="bathrooms" value="1"><br><br>
+
+    <label>Area:</label><br>
+    <input type="text" name="area" value="50 sqm"><br><br>
+
+    <label>Image:</label><br>
+    <input type="text" name="image" value="near-you-1.png"><br><br>
+
+    <button type="submit">Create Test Property</button>
+
+</form>
+
+</body>
+</html>
