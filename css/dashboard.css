@@ -1,0 +1,534 @@
+.dashboard-header {
+  padding-block: var(--space-6) var(--space-4);
+}
+
+.dashboard-header h1 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+
+.dashboard-header p {
+  color: var(--color-text-dim);
+  font-size: 0.98rem;
+}
+
+/* ---------- Profile card ---------- */
+.dashboard-profile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--color-card);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.dashboard-profile__avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-card-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.dashboard-profile__name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--color-text);
+  margin-bottom: 2px;
+}
+
+.dashboard-profile__email {
+  font-size: 0.88rem;
+  color: var(--color-text-faint);
+}
+
+.dashboard-profile__badge {
+  margin-left: auto;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  white-space: nowrap;
+}
+
+/* ---------- Section blocks ---------- */
+.dashboard-section {
+  margin-bottom: var(--space-6);
+}
+
+.dashboard-section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.dashboard-section__head h2 {
+  font-size: 1.25rem;
+  color: var(--color-text);
+}
+
+.dashboard-section__count {
+  font-size: 0.82rem;
+  color: var(--color-text-faint);
+}
+
+.dashboard-favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: var(--space-3);
+}
+
+/* ---------- Empty states ---------- */
+.dashboard-empty {
+  background: var(--color-bg-raised);
+  border: 1px dashed var(--color-card-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-5);
+  text-align: center;
+  color: var(--color-text-dim);
+}
+
+.dashboard-empty p {
+  font-size: 0.92rem;
+  margin-bottom: var(--space-2);
+}
+
+.dashboard-empty a {
+  color: var(--color-gold);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.dashboard-empty a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Session card ---------- */
+.dashboard-session {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  background: var(--color-card);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.dashboard-session p {
+  font-size: 0.88rem;
+  color: var(--color-text-dim);
+  max-width: 420px;
+}
+
+.dashboard-session strong {
+  display: block;
+  color: var(--color-text);
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.dashboard-logout-btn {
+  background: transparent;
+  border: 1px solid var(--color-rust);
+  color: var(--color-rust);
+}
+
+.dashboard-logout-btn:hover {
+  background: var(--color-rust);
+  color: #fff;
+}
+
+@media (max-width: 640px) {
+  .dashboard-profile {
+    flex-wrap: wrap;
+  }
+  .dashboard-profile__badge {
+    margin-left: 0;
+  }
+  .dashboard-session {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.dashboard-bookings-list {
+  display: grid;
+  gap: 18px;
+}
+
+.dashboard-booking-card {
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 18px;
+  background: #fff;
+  color: #1a1a1a;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+}
+
+.dashboard-booking-card__image {
+  width: 150px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.dashboard-booking-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dashboard-booking-card__code {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: #9a7b32;
+}
+
+.dashboard-booking-card__content h3 {
+  margin: 5px 0;
+}
+
+.dashboard-booking-card__content p {
+  margin: 0 0 12px;
+  color: #666;
+}
+
+.dashboard-booking-card__details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+  color: #666;
+}
+
+.dashboard-booking-card__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.dashboard-booking-card__side strong {
+  color: #1a1a1a;
+}
+
+.dashboard-booking-card__status {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.status-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-confirmed {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+.status-cancelled {
+  background: #f8d7da;
+  color: #842029;
+}
+
+.status-completed {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+@media (max-width: 700px) {
+  .dashboard-booking-card {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-booking-card__image {
+    width: 100%;
+    height: 180px;
+  }
+
+  .dashboard-booking-card__side {
+    align-items: flex-start;
+  }
+}
+
+.dashboard-owner-bookings-list {
+  display: grid;
+  gap: 18px;
+}
+
+.dashboard-owner-booking-card {
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 18px;
+  background: #fff;
+  color: #1a1a1a;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+}
+
+.dashboard-owner-booking-card__image {
+  width: 150px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.dashboard-owner-booking-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dashboard-owner-booking-card__code {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: #9a7b32;
+}
+
+.dashboard-owner-booking-card__content h3 {
+  margin: 5px 0;
+  color: #1a1a1a;
+}
+
+.dashboard-owner-booking-card__content p {
+  margin: 0 0 12px;
+  color: #666;
+}
+
+.dashboard-owner-booking-card__guest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #555;
+}
+
+.dashboard-owner-booking-card__guest strong {
+  color: #1a1a1a;
+}
+
+.dashboard-owner-booking-card__details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+  color: #666;
+}
+
+.dashboard-owner-booking-card__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.dashboard-owner-booking-card__side strong {
+  color: #1a1a1a;
+}
+
+.dashboard-owner-booking-card__status {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+@media (max-width: 700px) {
+  .dashboard-owner-booking-card {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-owner-booking-card__image {
+    width: 100%;
+    height: 180px;
+  }
+
+  .dashboard-owner-booking-card__side {
+    align-items: flex-start;
+  }
+}
+
+.dashboard-owner-booking-card__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.dashboard-owner-booking-card__actions button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.dashboard-owner-booking-card__actions button:first-child {
+  background: #2f7d32;
+  color: #fff;
+}
+
+.dashboard-owner-booking-card__actions button:last-child {
+  background: #b33a3a;
+  color: #fff;
+}
+
+.dashboard-owner-properties-list {
+  display: grid;
+  gap: 18px;
+}
+
+.dashboard-owner-property-card {
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 18px;
+  background: #fff;
+  color: #1a1a1a;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+}
+
+.dashboard-owner-property-card__image {
+  width: 150px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.dashboard-owner-property-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.dashboard-owner-property-card span:first-child {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: #9a7b32;
+}
+
+.dashboard-owner-property-card h3 {
+  margin: 5px 0;
+  color: #1a1a1a;
+}
+
+.dashboard-owner-property-card p {
+  margin: 0 0 10px;
+  color: #666;
+}
+
+.dashboard-owner-property-card strong {
+  color: #1a1a1a;
+}
+
+.dashboard-owner-property-card__status {
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.dashboard-owner-property-card__status.status-available {
+  background: #dff3e3;
+  color: #247a3b;
+}
+
+.dashboard-owner-property-card__status.status-rented {
+  background: #f8dddd;
+  color: #b33232;
+}
+
+.dashboard-owner-property-card__status:where([class*="rented"]) {
+  background: #f8dddd;
+  color: #b33232;
+}
+
+.dashboard-owner-property-card__actions button {
+  padding: 9px 14px;
+  border: 1px solid #d0d0d0;
+  border-radius: 9px;
+  background: #fff;
+  color: #333;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.dashboard-owner-property-card__actions button:hover {
+  background: #f1f1f1;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 700px) {
+  .dashboard-owner-property-card {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-owner-property-card__image {
+    width: 100%;
+    height: 180px;
+  }
+
+  .dashboard-owner-property-card__status {
+    justify-self: start;
+  }
+}
+
+.dashboard-owner-property-card__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.dashboard-owner-property-card__actions button {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f5f5f5;
+  color: #333;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .dashboard-owner-property-card__actions {
+    align-items: flex-start;
+  }
+}
+
+/* ---------- Admin Panel link (admins only) ---------- */
+.dashboard-admin-btn {
+  margin-left: 0;
+  white-space: nowrap;
+}
+.dashboard-admin-btn[hidden] { display: none; }

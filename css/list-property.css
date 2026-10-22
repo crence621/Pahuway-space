@@ -1,0 +1,476 @@
+/* =========================================================
+   LIST PROPERTY PAGE
+   Pahuway Space
+   ========================================================= */
+
+.listing-page {
+  padding-block: var(--space-6) var(--space-7);
+}
+
+
+/* ---------- Heading ---------- */
+
+.listing-heading {
+  max-width: 720px;
+  padding-block: var(--space-4) var(--space-5);
+}
+
+.listing-heading .hero__eyebrow {
+  margin-bottom: var(--space-3);
+}
+
+.listing-heading h1 {
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  margin-bottom: var(--space-3);
+}
+
+.listing-heading h1 .accent {
+  color: var(--color-gold);
+}
+
+.listing-heading p {
+  max-width: 620px;
+  color: var(--color-text-dim);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+
+/* ---------- Main layout ---------- */
+
+.listing-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+
+/* ---------- Form card ---------- */
+
+.listing-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-card-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.listing-card form {
+  padding: var(--space-5);
+}
+
+
+/* ---------- Sections ---------- */
+
+.listing-section {
+  padding-bottom: var(--space-5);
+  margin-bottom: var(--space-5);
+  border-bottom: 1px solid var(--color-card-border);
+}
+
+.listing-section:last-of-type {
+  margin-bottom: 0;
+}
+
+.listing-section__heading {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.listing-section__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  border: 1px solid var(--color-card-border);
+  border-radius: 50%;
+
+  color: var(--color-gold);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.listing-section__heading h2 {
+  font-size: 1.25rem;
+  margin-bottom: 3px;
+}
+
+.listing-section__heading p {
+  color: var(--color-text-faint);
+  font-size: 0.82rem;
+}
+
+
+/* ---------- Form grid ---------- */
+
+.listing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.listing-grid--three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.listing-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+
+/* ---------- Fields ---------- */
+
+.listing-field {
+  margin-bottom: var(--space-3);
+}
+
+.listing-field--full {
+  width: 100%;
+}
+
+.listing-field label {
+  display: block;
+  margin-bottom: 7px;
+
+  color: var(--color-text-dim);
+
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.listing-field input,
+.listing-field select,
+.listing-field textarea {
+  width: 100%;
+
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-card-border);
+  border-radius: 11px;
+
+  color: var(--color-text);
+
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.listing-field input,
+.listing-field select {
+  height: 46px;
+  padding: 0 13px;
+}
+
+.listing-field textarea {
+  padding: 12px 13px;
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.55;
+}
+
+.listing-field input::placeholder,
+.listing-field textarea::placeholder {
+  color: var(--color-text-faint);
+}
+
+.listing-field input:focus,
+.listing-field select:focus,
+.listing-field textarea:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(212, 169, 23, 0.08);
+}
+
+.listing-field select {
+  appearance: auto;
+}
+
+.listing-field small {
+  display: block;
+  margin-top: 7px;
+
+  color: var(--color-text-faint);
+  font-size: 0.73rem;
+  line-height: 1.5;
+}
+
+.listing-field code {
+  color: var(--color-gold);
+  font-family: var(--font-body);
+}
+
+
+/* ---------- Price prefix ---------- */
+
+.input-prefix {
+  position: relative;
+}
+
+.input-prefix span {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  color: var(--color-gold);
+  font-weight: 700;
+
+  pointer-events: none;
+}
+
+.input-prefix input {
+  padding-left: 30px;
+}
+
+
+/* ---------- Submit area ---------- */
+
+.listing-submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+
+  padding-top: var(--space-2);
+}
+
+.listing-submit strong {
+  display: block;
+
+  color: var(--color-text);
+  font-size: 0.92rem;
+
+  margin-bottom: 3px;
+}
+
+.listing-submit p {
+  color: var(--color-text-faint);
+  font-size: 0.76rem;
+}
+
+.listing-submit__button {
+  flex-shrink: 0;
+  padding-inline: 28px;
+}
+
+
+/* ---------- Messages ---------- */
+
+.listing-message {
+  margin-top: var(--space-3);
+
+  border-radius: 11px;
+  padding: 12px 14px;
+
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.listing-message--success {
+  color: var(--color-teal);
+
+  background: color-mix(
+    in srgb,
+    var(--color-teal) 10%,
+    transparent
+  );
+
+  border: 1px solid color-mix(
+    in srgb,
+    var(--color-teal) 30%,
+    transparent
+  );
+}
+
+.listing-message--error {
+  color: var(--color-rust);
+
+  background: color-mix(
+    in srgb,
+    var(--color-rust) 10%,
+    transparent
+  );
+
+  border: 1px solid color-mix(
+    in srgb,
+    var(--color-rust) 30%,
+    transparent
+  );
+}
+
+
+/* ---------- Aside ---------- */
+
+.listing-aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  position: sticky;
+  top: 100px;
+}
+
+.listing-aside__card {
+  padding: var(--space-4);
+
+  background:
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(212, 169, 23, 0.16),
+      transparent 60%
+    ),
+    var(--color-bg-raised);
+
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-card);
+}
+
+.listing-aside__eyebrow {
+  display: block;
+
+  margin-bottom: var(--space-2);
+
+  color: var(--color-gold);
+
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.listing-aside__card h2 {
+  font-size: 1.45rem;
+  line-height: 1.25;
+
+  margin-bottom: var(--space-2);
+}
+
+.listing-aside__card h2 span {
+  color: var(--color-gold);
+}
+
+.listing-aside__card p {
+  color: var(--color-text-dim);
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+
+
+/* ---------- Tips ---------- */
+
+.listing-aside__tips {
+  padding: var(--space-4);
+
+  background: var(--color-card);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-card);
+}
+
+.listing-aside__tips h3 {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  color: var(--color-text);
+
+  margin-bottom: var(--space-3);
+}
+
+.listing-aside__tips ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.listing-aside__tips li {
+  display: flex;
+  gap: 10px;
+
+  color: var(--color-text-dim);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.listing-aside__tips li span {
+  color: var(--color-gold);
+  font-size: 0.68rem;
+  font-weight: 700;
+
+  flex-shrink: 0;
+}
+
+
+/* ---------- Disabled button ---------- */
+
+.listing-submit__button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+
+  .listing-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .listing-aside {
+    position: static;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+
+@media (max-width: 640px) {
+
+  .listing-page {
+    padding-block: var(--space-4) var(--space-6);
+  }
+
+  .listing-heading {
+    padding-block: var(--space-3) var(--space-4);
+  }
+
+  .listing-card form {
+    padding: var(--space-3);
+  }
+
+  .listing-grid,
+  .listing-grid--three,
+  .listing-grid--two {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .listing-submit {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .listing-submit__button {
+    width: 100%;
+  }
+
+  .listing-aside {
+    display: flex;
+  }
+
+}
