@@ -187,9 +187,9 @@ async function renderProfile() {
             <p>${booking.location}</p>
 
             <div class="dashboard-booking-card__details">
-              <span>${formatBookingDate(booking.check_in)} → ${formatBookingDate(booking.check_out)}</span>
+              <span>${formatBookingPeriod(booking)}</span>
               <span>${booking.guests} guest${booking.guests > 1 ? "s" : ""}</span>
-              <span>${booking.nights} night${booking.nights > 1 ? "s" : ""}</span>
+              <span>${formatBookingLength(booking)}</span>
             </div>
           </div>
 
@@ -260,9 +260,9 @@ async function loadOwnerBookings() {
             </div>
 
             <div class="dashboard-owner-booking-card__details">
-              <span>${formatBookingDate(booking.check_in)} → ${formatBookingDate(booking.check_out)}</span>
+              <span>${formatBookingPeriod(booking)}</span>
               <span>${booking.guests} guest${booking.guests > 1 ? "s" : ""}</span>
-              <span>${booking.nights} night${booking.nights > 1 ? "s" : ""}</span>
+              <span>${formatBookingLength(booking)}</span>
             </div>
           </div>
 
@@ -292,6 +292,22 @@ async function loadOwnerBookings() {
     list.innerHTML = `<p>Unable to load booking requests.</p>`;
     console.error(error);
   }
+}
+
+function formatBookingPeriod(booking) {
+  if (booking.price_unit === "monthly" || !booking.check_out) {
+    return `Move-in: ${formatBookingDate(booking.check_in)}`;
+  }
+
+  return `${formatBookingDate(booking.check_in)} → ${formatBookingDate(booking.check_out)}`;
+}
+
+function formatBookingLength(booking) {
+  if (booking.price_unit === "monthly" || !booking.check_out) {
+    return "Monthly rental";
+  }
+
+  return `${booking.nights} night${booking.nights > 1 ? "s" : ""}`;
 }
 
 function formatBookingDate(date) {
@@ -381,6 +397,12 @@ async function loadOwnerProperties() {
           <span class="dashboard-owner-property-card__status status-${property.status}">
             ${property.status}
           </span>
+
+          <button type="button"
+            class="dashboard-owner-property-card__edit"
+            onclick="window.location.href='list-property.html?edit=${property.property_id}'">
+            Edit
+          </button>
 
           <button type="button"
             onclick="updatePropertyStatus(${property.property_id}, '${property.status === "available" ? "rented" : "available"}')">
