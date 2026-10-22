@@ -117,6 +117,48 @@
   margin-bottom: var(--space-2);
 }
 
+/* Pets and parking */
+.booking-modal__amenities {
+  list-style: none;
+  margin: 0 0 var(--space-2);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.booking-modal__amenities:empty {
+  display: none;
+}
+
+.booking-modal__amenities li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+  color: var(--color-text);
+}
+
+.amenity-icon {
+  flex: none;
+}
+
+.amenity-icon--yes {
+  color: var(--color-teal);
+}
+
+.amenity-icon--no {
+  color: var(--color-rust);
+}
+
+.amenity-icon--info {
+  color: var(--color-gold);
+}
+
+.amenity-note {
+  color: var(--color-text-dim);
+}
+
 .booking-modal__price {
   font-family: var(--font-display);
   font-size: 1.5rem;
@@ -172,6 +214,10 @@
   display: grid;
   grid-template-columns: 0.8fr 1fr 1fr;
   gap: var(--space-2);
+}
+
+.booking-field-row--two {
+  grid-template-columns: 0.8fr 1.2fr;
 }
 
 .booking-field-error {
@@ -364,4 +410,203 @@
   .listing-access-modal__actions {
     flex-direction: column;
   }
+}
+
+/* ---------- Amenities & facilities ---------- */
+.booking-modal__facilities-title {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.booking-modal__facilities {
+  list-style: none;
+  margin: 0 0 var(--space-2);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.booking-modal__facilities li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid var(--color-card-border);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: var(--color-text);
+}
+
+/* ---------- Price breakdown (rate + bills) ---------- */
+.booking-summary__bills {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--color-card-border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-card-border);
+  font-size: 0.82rem;
+  color: var(--color-text-dim);
+}
+
+.booking-summary__bill {
+  display: flex;
+  justify-content: space-between;
+}
+
+.booking-summary__bill .is-included {
+  color: var(--color-teal);
+  font-weight: 600;
+}
+
+.booking-summary__bill .is-separate {
+  color: var(--color-rust);
+  font-weight: 600;
+}
+
+.booking-summary__note {
+  margin: 8px 0 0;
+  font-size: 0.74rem;
+  color: var(--color-text-faint);
+}
+
+.booking-summary__bill .is-none {
+  color: var(--color-text-faint);
+  font-weight: 500;
+}
+
+/* ---------- Terms & Conditions pop-up ---------- */
+.terms-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3);
+  background: rgba(6, 6, 7, 0.78);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.terms-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.terms-dialog {
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  background: var(--color-card);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.terms-dialog__title {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--color-text);
+}
+
+.terms-dialog__intro {
+  margin: 0 0 var(--space-2);
+  font-size: 0.84rem;
+  color: var(--color-text-dim);
+}
+
+.terms-dialog__scroll {
+  flex: 1 1 auto;
+  min-height: 120px;
+  overflow-y: auto;
+  margin-bottom: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-card);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--color-text-dim);
+}
+
+.terms-dialog__scroll ol {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.terms-dialog__scroll strong {
+  color: var(--color-text);
+}
+
+.terms-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.terms-check input {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  accent-color: var(--color-gold);
+  cursor: pointer;
+}
+
+.terms-dialog__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: var(--space-2);
+}
+
+.terms-dialog__actions .btn {
+  flex: 1;
+  justify-content: center;
+}
+
+.terms-dialog__confirm:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.booking-submit-block.is-requested,
+.booking-submit-block:disabled.is-requested {
+  opacity: 1;
+  background: transparent;
+  color: var(--color-teal);
+  border: 1px solid var(--color-teal);
+  cursor: default;
+}
+
+.booking-confirmation__status {
+  display: inline-block;
+  margin: 0 0 var(--space-2);
+  padding: 5px 12px;
+  border: 1px solid var(--color-teal);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-teal);
 }
