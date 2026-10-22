@@ -533,3 +533,15 @@
 }
 .dashboard-admin-btn[hidden] { display: none; }
 }
+
+/* ---------- Edit button on "My Properties" cards ---------- */
+.dashboard-owner-property-card__actions .dashboard-owner-property-card__edit {
+  background: #9a7b32;
+  border-color: #9a7b32;
+  color: #fff;
+  font-weight: 600;
+}
+
+.dashboard-owner-property-card__actions .dashboard-owner-property-card__edit:hover {
+  background: #846a2a;
+}
