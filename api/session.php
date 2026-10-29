@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -13,15 +14,11 @@ if (!isset($_SESSION["user_id"])) {
     exit;
 }
 
-/* Read the user fresh from the database so the account type is never stale
-   (e.g. right after being promoted/demoted in the admin panel or the DB). */
 $user_id = (int) $_SESSION["user_id"];
 
-/* Older databases may not have the account_type column yet. Without this
-   check the query throws, session.php returns a PHP error instead of JSON,
-   and the front-end bounces the user straight back to the login page. */
 $has_account_type = false;
 $col = $conn->query("SHOW COLUMNS FROM users LIKE 'account_type'");
+
 if ($col && $col->num_rows > 0) {
     $has_account_type = true;
 }
@@ -37,7 +34,6 @@ $user = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
 if (!$user) {
-    // Account no longer exists: end the session.
     $_SESSION = [];
     session_destroy();
 

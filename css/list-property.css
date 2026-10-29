@@ -214,6 +214,38 @@
 }
 
 
+/* ---------- Pets and parking checkboxes ---------- */
+
+.listing-field .listing-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 0;
+
+  color: var(--color-text);
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.listing-field .listing-check input {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+
+  accent-color: var(--color-gold);
+
+  cursor: pointer;
+}
+
+.listing-subfield {
+  margin-top: 12px;
+}
+
+
 /* ---------- Price prefix ---------- */
 
 .input-prefix {
@@ -473,4 +505,71 @@
     display: flex;
   }
 
+}
+
+/* ---------- Bills + amenities & facilities ---------- */
+
+.listing-bills {
+  margin-top: 8px;
+}
+
+.listing-subheading {
+  margin: 0 0 4px;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.listing-subnote {
+  margin: 0 0 14px;
+  color: var(--color-text-faint);
+  font-size: 0.8rem;
+}
+
+.listing-amenities {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 20px;
+}
+
+.listing-amenities .listing-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.listing-amenities .listing-check input {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+
+  accent-color: var(--color-gold);
+
+  cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .listing-amenities {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ---------- Bills ---------- */
+
+.listing-bill {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.listing-bill select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

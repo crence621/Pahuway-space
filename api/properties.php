@@ -21,6 +21,14 @@ $sql = "SELECT
             properties.image,
             properties.verified,
             properties.status,
+            properties.pets_allowed,
+            properties.pet_conditions,
+            properties.parking_nearby,
+            properties.parking_fee,
+            properties.electricity_included,
+            properties.water_included,
+            properties.internet_included,
+            properties.amenities,
             properties.created_at
         FROM properties
         INNER JOIN users ON properties.owner_id = users.user_id
@@ -48,6 +56,12 @@ while ($row = $result->fetch_assoc()) {
     $row["bedrooms"] = (int) $row["bedrooms"];
     $row["bathrooms"] = (int) $row["bathrooms"];
     $row["verified"] = (bool) $row["verified"];
+    $row["pets_allowed"] = (bool) $row["pets_allowed"];
+    $row["parking_nearby"] = (bool) $row["parking_nearby"];
+    $row["electricity_included"] = (int) $row["electricity_included"];
+    $row["water_included"] = (int) $row["water_included"];
+    $row["internet_included"] = (int) $row["internet_included"];
+    $row["amenities"] = $row["amenities"] === "" ? [] : explode(",", $row["amenities"]);
 
     $properties[] = $row;
 }

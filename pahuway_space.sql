@@ -47,6 +47,16 @@ CREATE TABLE properties (
     image           VARCHAR(255),
     verified        TINYINT(1)      NOT NULL DEFAULT 0,
     status          ENUM('available','rented','inactive') NOT NULL DEFAULT 'available',
+    pets_allowed    TINYINT(1)      NOT NULL DEFAULT 0,
+    pet_conditions  VARCHAR(255)    NULL,
+    parking_nearby  TINYINT(1)      NOT NULL DEFAULT 0,
+    parking_fee     ENUM('free','paid') NULL,
+    -- bills: 1 = covered by rent, 0 = paid separately (internet only: 2 = no internet)
+    electricity_included TINYINT(1) NOT NULL DEFAULT 0,
+    water_included       TINYINT(1) NOT NULL DEFAULT 0,
+    internet_included    TINYINT(1) NOT NULL DEFAULT 0,
+    -- comma-separated keys: aircon,heating,refrigerator,microwave,washing_machine,tv
+    amenities            VARCHAR(255) NOT NULL DEFAULT '',
     created_at      TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_properties_owner
         FOREIGN KEY (owner_id) REFERENCES users(user_id)
@@ -61,7 +71,7 @@ CREATE TABLE bookings (
     user_id         INT             NOT NULL,
     property_id     INT             NOT NULL,
     check_in        DATE            NOT NULL,
-    check_out       DATE            NOT NULL,
+    check_out       DATE            NULL,       -- NULL for monthly rentals (move-in date only)
     guests          INT             NOT NULL DEFAULT 1,
     nights          INT             NOT NULL,
     total_amount    DECIMAL(10,2)   NOT NULL,
